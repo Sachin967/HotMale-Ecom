@@ -1,0 +1,81 @@
+<div class="mt-5 pt-5">
+    <div class="row justify-content-center mt-5 mb-5">
+      <div class="col-md-6">
+        <div class="card w-75 mx-5">
+          <div class="card-header text-center">
+            <h1 class="font-weight-bold">Login</h1>
+          </div>
+          <div class="card-body">
+            <form class="form-horizontal" method="post" action="/otp-verify">
+              <% if(locals.error){ %>
+              <div class="form-group alert alert-danger w-100 d-flex justify-content-center align-items-center mt-3" style="height: 40px; padding:0;" role="alert">
+                <%= msg %>
+              </div>
+              <% } %>
+              <div class="form-group">
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter your otp here" />
+                  </div>
+                  <% if(locals.mobile){ %>
+                  <input type="text" class="form-control d-none" name="mobile" value="<%=mobile %>" id="" placeholder="" />
+                  <% } %>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Custom styles for the login page */
+  
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    .card-header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px;
+    }
+  
+    .card-body {
+      padding: 15px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    .input-group-addon {
+      padding: 10px;
+    }
+  
+    .login-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      outline: none;
+    }
+  
+    .login-button:hover {
+      background-color: #0056b3;
+    }
+  
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+    }
+  </style>
+  

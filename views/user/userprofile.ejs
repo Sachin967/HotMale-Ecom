@@ -1,0 +1,174 @@
+<%-include('./includes/header') %>
+
+  <div class="row mt-3">
+    <div class="col-lg-4">
+      <div class="card mb-4 mx-3 border">
+        <div class="card-body text-center">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+          <h5 class="my-3">Hello</h5>
+          <p class="text-muted mb-1"></p>
+          <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+          <div class="d-flex justify-content-center mb-2">
+            <button type="button" class="btn btn-primary">Follow</button>
+            <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-4 mx-3  mb-lg-0 border">
+        <div class="card-body p-0 border">
+          <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fas fa-globe fa-lg text-warning"></i>
+              <a href="#">
+                <h4 class="mb-0"><Strong>My Orders</Strong></h4>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+              <a href="/my-profile">
+                <p class="mb-0"><strong>Profile Information</strong></p>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+              <a href="">
+                <p class="mb-0"><strong>Manage Address</strong></p>
+              </a>
+            </li>
+            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                  <p class="mb-0">@mdbootstrap</p>
+                </li> -->
+            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class='mb-5'>Personal Information</h4>
+          <div class="row">
+            <div class="col-sm-3">
+
+              <h6 class="mb-5">Full Name</h6>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control mb-5" placeholder=" Full Name" value="<%=user.name%>"
+                id="full_name" data-field="name" disabled>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-5">Email</h6>
+            </div>
+            <div class="col-sm-9">
+              <input type="email" class="form-control mb-5" placeholder=" Email" value="<%=user.email%>" id="email"
+                data-field="email" disabled>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-5">Mobile</h6>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control mb-5" placeholder=" Mobile" value="<%=user.mobile%>" id="mobile"
+                data-field="mobile" disabled>
+            </div>
+          </div>
+          <hr>
+          <button id="editBtn" class="btn btn-primary">Edit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <%-include('./includes/footer') %>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const editBtn = document.getElementById('editBtn');
+        const inputFields = document.querySelectorAll('.form-control');
+
+        // Function to fetch user profile data and populate the input fields
+        const fetchUserProfile = () => {
+          fetch('/my-profile')
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success && data.data) {
+                // Populate the input fields with the received data
+                inputFields.forEach((input) => {
+                  input.value = data.data[input.dataset.field] || '';
+                });
+              } else {
+                // Handle error fetching user profile data (optional)
+                console.error('Error fetching user profile:', data.message);
+              }
+            })
+            .catch((error) => {
+              // Handle fetch error (optional)
+              console.error('Error occurred:', error);
+            });
+        };
+
+        // Fetch user profile data and populate input fields on page load
+        fetchUserProfile();
+
+        // Add the event listener for the Edit button
+        editBtn.addEventListener('click', () => {
+          if (editBtn.textContent === 'Edit') {
+            // Enable input fields for editing
+            inputFields.forEach((input) => {
+              input.disabled = false;
+            });
+
+            // Change the text of the Edit button to 'Save'
+            editBtn.textContent = 'Save';
+          } else {
+            // Disable input fields when 'Save' is clicked
+            inputFields.forEach((input) => {
+              input.disabled = true;
+            });
+
+            // Prepare the data to be sent to the server
+            const formData = {};
+            inputFields.forEach((input) => {
+              formData[input.dataset.field] = input.value;
+            });
+
+            // Use fetch to send the formData to the server
+            fetch('/my-profile', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log('Response from server:', data);
+                if (data.success) {
+                  // If the server successfully updated the profile, show a success message to the user
+                  alert('Profile edited successfully!');
+                  editBtn.textContent = 'Edit';
+                } else {
+                  // If there was an error, show an error message to the user
+                  alert('Error updating profile: ' + data.message);
+                }
+              })
+              .catch((error) => {
+                // Handle any errors that occur during the fetch request (optional)
+                console.error('Error occurred:', error);
+              });
+          }
+        });
+      });
+
+
+    </script>

@@ -1,0 +1,261 @@
+<%-include('./includes/header') %>
+<div class="row mt-3">
+<div class="col-lg-4">
+  <div class="card mb-4 mx-3 border">
+    <div class="card-body text-center">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+        class="rounded-circle img-fluid" style="width: 150px;">
+      <h5 class="my-3">Hello</h5>
+      <p class="text-muted mb-1"></p>
+      <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+      <div class="d-flex justify-content-center mb-2">
+        <button type="button" class="btn btn-primary">Follow</button>
+        <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4 mx-3  mb-lg-0 border">
+    <div class="card-body p-0 border">
+      <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+          <i class="fas fa-globe fa-lg text-warning"></i>
+          <a href="#">
+            <h4 class="mb-0"><Strong>My Orders</Strong></h4>
+          </a>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+          <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+          <a href="/my-profile">
+            <p class="mb-0"><strong>Profile Information</strong></p>
+          </a>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+          <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+          <a href="">
+            <p class="mb-0"><strong>Manage Address</strong></p>
+          </a>
+        </li>
+        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+              <p class="mb-0">@mdbootstrap</p>
+            </li> -->
+        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+              <p class="mb-0">mdbootstrap</p>
+            </li> -->
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-lg-8" id="manageAddress">
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Manage Address</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <button type="button" class="btn btn-outline-primary" onclick="openAddAddressForm()">
+            Add New Address
+          </button>
+        </div>
+        <div class="address-list">
+          <!-- Your added addresses list goes here -->
+          <p>Address 1 <span class="float-right">
+              <button type="button" class="btn btn-link" onclick="openEditAddressForm()">Edit</button>
+              <button type="button" class="btn btn-link" onclick="deleteAddress()">Delete</button>
+            </span></p>
+          <p>Address 2 <span class="float-right">
+              <button type="button" class="btn btn-link" onclick="openEditAddressForm()">Edit</button>
+              <button type="button" class="btn btn-link" onclick="deleteAddress()">Delete</button>
+            </span></p>
+          <!-- Add more addresses as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Address Form -->
+  <div class="container mt-4" style="display: none;" id="addAddressForm">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Add New Address</h5>
+      </div>
+      <div class="card-body">
+        <!-- Your form to add a new address goes here -->
+        <form method="post" id="addAddress">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" required>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="mobileInput" name="mobile" placeholder="Mobile" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="pincodeInput" name="pincode" placeholder="Pincode" required>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="cityInput" name="city" placeholder="City" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="addressInput" placeholder="Full Address" name="address" rows="5" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="districtInput" name="district" placeholder="District" required>
+            </div>
+            <div class="form-group col-md-6">
+              <select class="form-control" id="stateInput" name="state" required>
+                <option value="" disabled selected>Select State</option>
+                <option value="state1">Kerala</option>
+                <option value="state2">Goa</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="landmarkInput" name="landmark" placeholder="Landmark" required>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary mr-2" onclick="cancelAddAddress()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Address</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Address Form -->
+  <div class="container mt-4" style="display: none;" id="editAddressForm">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Edit Address</h5>
+      </div>
+      <div class="card-body">
+        <!-- Your form to edit an address goes here -->
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="fullNameInput" placeholder="Full Name" required>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="mobileInput" placeholder="Mobile" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="pincodeInput" placeholder="Pincode" required>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="cityInput" placeholder="City" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="addressInput" placeholder="Full Address" rows="5" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <select class="form-control" id="districtInput" required>
+                <option value="" disabled selected>Select District</option>
+                <option value="district1">District 1</option>
+                <option value="district2">District 2</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <select class="form-control" id="stateInput" required>
+                <option value="" disabled selected>Select State</option>
+                <option value="state1">State 1</option>
+                <option value="state2">State 2</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="landmarkInput" placeholder="Landmark" required>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary mr-2" onclick="cancelEditAddress()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Address</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Add Bootstrap and Font Awesome JS links here -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+<script>
+  function openAddAddressForm() {
+    document.getElementById('addAddressForm').style.display = 'block';
+  }
+
+  function cancelAddAddress() {
+    document.getElementById('addAddressForm').style.display = 'none';
+  }
+
+  function openEditAddressForm() {
+    document.getElementById('editAddressForm').style.display = 'block';
+  }
+
+  function cancelEditAddress() {
+    document.getElementById('editAddressForm').style.display = 'none';
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const addAddressSection = document.getElementById('addAddressForm');
+  const manageAddressPage = document.getElementById('manageAddress');
+
+
+document.getElementById('addAddress').addEventListener('submit', async (event) => {
+  event.preventDefault()
+  try {
+    const formData = {
+      name: document.getElementById('addAddress').elements['name'].value,
+      mobile: document.getElementById('addAddress').elements['mobile'].value,
+      pincode: document.getElementById('addAddress').elements['pincode'].value,
+      address: document.getElementById('addAddress').elements['address'].value,
+      city: document.getElementById('addAddress').elements['city'].value,
+      state: document.getElementById('addAddress').elements['state'].value,
+      landmark: document.getElementById('addAddress').elements['landmark'].value,
+      district: document.getElementById('addAddress').elements['district'].value,
+    };
+        
+      const response = await fetch('/postaddress', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      alert(data)
+      if (data.success) {
+        // Address added successfully, show a success message to the user (optional)
+        alert(data.message);
+
+        // After a successful address addition, hide the "Manage Address" page and show the "Add Address" section
+        addAddressForm.style.display = 'none';
+      } else {
+        // Failed to add address, show an error message to the user (optional)
+        alert(data.message);
+      }
+
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+  });
+});
+
+</script>
+<%-include('./includes/footer') %>
