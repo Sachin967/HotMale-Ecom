@@ -36,6 +36,37 @@
 	<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
 	<!--===============================================================================================-->
 </head>
+<style>
+	/* Add your custom styling for the buttons here */
+	.btn {
+		padding: 10px 20px;
+		text-decoration: none;
+		border: none;
+		border-radius: 30px;
+		color: white;
+		cursor: pointer;
+	}
+
+	.btn-stylish {
+		background-color: #8a8c8d;
+		/* Blue color - you can choose your own color */
+	}
+
+	.btn-stylish-active {
+		background-color: #0b0a0a;
+		/* Orange color - you can choose your own color */
+	}
+
+	.btn-stylish:hover {
+		background-color: #8a8c8d;
+		/* Darker shade of blue on hover - you can choose your own color */
+	}
+
+	.btn-stylish-active:hover {
+		background-color: #0b0a0a;
+		/* Darker shade of orange on hover - you can choose your own color */
+	}
+</style>
 
 <body class="animsition">
 
@@ -50,22 +81,22 @@
 						Free shipping for standard order over $100
 					</div>
 
-					<div class="right-top-bar flex-w h-full">
+					 <div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs
-						</a>
+						</a> -->
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="/my-profile" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<!-- <a href="#" class="flex-c-m trans-04 p-lr-25">
 							EN
 						</a>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							USD
-						</a>
+						</a> -->
 					</div>
 				</div>
 			</div>
@@ -92,11 +123,11 @@
 							<a href="/products">Shop</a>
 						</li>
 
-						<li class="label1" data-label1="hot">
+						<li>
 							<a href="shoping-cart.html">Features</a>
 						</li>
 
-						<li>
+						<!-- <li>
 							<a href="blog.html">Blog</a>
 						</li>
 
@@ -106,7 +137,7 @@
 
 						<li>
 							<a href="contact.html">Contact</a>
-						</li>
+						</li> -->
 						</ul>
 					</div>
 
@@ -116,10 +147,15 @@
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-							data-notify="2">
-							<i class="zmdi zmdi-shopping-cart"></i>
-						</div>
+						<% if (loggedIn) { %>
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<%= cartProductCount %>">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div>
+						<% } else { %>
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="0">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</div>
+						<% } %>
 
 						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
@@ -172,21 +208,21 @@
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<!-- <a href="#" class="flex-c-m p-lr-10 trans-04">
 							Help & FAQs
-						</a>
+						</a> -->
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="/my-profile" class="flex-c-m p-lr-10 trans-04">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<!-- <a href="#" class="flex-c-m p-lr-10 trans-04">
 							EN
-						</a>
+						</a> -->
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<!-- <a href="#" class="flex-c-m p-lr-10 trans-04">
 							USD
-						</a>
+						</a> -->
 					</div>
 				</li>
 			</ul>
@@ -195,7 +231,7 @@
 				<li>
 					<a href="/">Home</a>
 					<ul class="sub-menu-m">
-						
+
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -205,12 +241,12 @@
 				<li>
 					<a href="/products">Shop</a>
 				</li>
-
+<!-- 
 				<li>
 					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-				</li>
+				</li> -->
 
-				<li>
+				<!-- <li>
 					<a href="blog.html">Blog</a>
 				</li>
 
@@ -220,7 +256,7 @@
 
 				<li>
 					<a href="contact.html">Contact</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 
@@ -313,12 +349,12 @@
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html"
+						<a href="/loadcart"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.html"
+						<a href="/checkout"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
@@ -328,38 +364,37 @@
 		</div>
 	</div>
 
-
+	
 	<!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">
 		<div class="container">
 
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+					<a href="/products" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
 						All Products
-					</button>
+					</a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-						Women
-					</button>
+					<a href="/products?page=1&category=Perfumes%20and%20Deos" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
+						Perfumes & Deos
+					</a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-						Men
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-						Bag
-					</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
+					<a href="/products?page=1&category=Shoes" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
 						Shoes
-					</button>
+					</a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
+					<a href="/products?page=1&category=Topwear" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
+						Topwear
+					</a>
+
+					<a href="/products?page=1&category=Bottomwear" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1">
+						Bottomwear
+					</a>
+
+					<!-- <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
 						Watches
-					</button>
+					</button> -->
 				</div>
-
 				<div class="flex-w flex-c-m m-tb-10">
 					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
 						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
@@ -375,7 +410,7 @@
 				</div>
 
 				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+				<!-- <div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<div class="bor8 dis-flex p-l-15">
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
@@ -383,7 +418,35 @@
 
 						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
 					</div>
-				</div>
+				</div> -->
+				<!-- Your other HTML content goes here -->
+
+<!-- Search product form -->
+<!-- <div class="dis-none panel-search w-full p-t-10 p-b-15">
+  <form action="" method="GET">
+    <div class="bor8 dis-flex p-l-15">
+      <button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+        <i class="zmdi zmdi-search"></i>
+      </button>
+      <input class="mtext-107 cl2 size-114 plh2 p-r-15" id="search_input" type="text" value="<%=searchQuery %>" name="search" placeholder="Search">
+    </div>
+  </form>
+</div> -->
+
+
+<div class="dis-none panel-search w-full p-t-10 p-b-15">
+  <form id="searchForm" action="/products" method="GET">
+    <div class="bor8 dis-flex p-l-15">
+      <button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+        <i class="zmdi zmdi-search"></i>
+      </button>
+      <input class="mtext-107 cl2 size-114 plh2 p-r-15" id="search_input" type="text" name="search" placeholder="Search">
+    </div>
+   
+  </form>
+</div>
+
+
 
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
@@ -392,46 +455,29 @@
 							<div class="mtext-102 cl2 p-b-15">
 								Sort By
 							</div>
-
 							<ul>
 								<li class="p-b-6">
 									<a href="#" class="filter-link stext-106 trans-04">
 										Default
 									</a>
 								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Popularity
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Average rating
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+								<!-- <li class="p-b-6">
+									<a href="/products?sortBy=newness" class="filter-link stext-106 trans-04 filter-link-active">
 										Newness
-									</a>
-								</li>
-
+									</a>									
+								</li> -->
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="/products?sortBy=priceLowtoHigh" class="filter-link stext-106 trans-04">
 										Price: Low to High
 									</a>
 								</li>
-
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
+									<a href="/products?sortBy=priceHightoLow" class="filter-link stext-106 trans-04">
 										Price: High to Low
 									</a>
 								</li>
 							</ul>
 						</div>
-
 						<div class="filter-col2 p-r-15 p-b-27">
 							<div class="mtext-102 cl2 p-b-15">
 								Price
@@ -445,102 +491,34 @@
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$0.00 - $50.00
+									<a href="/products?priceFilter=under-2000" class="filter-link stext-106 trans-04">
+										Under 2000
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$50.00 - $100.00
+									<a href="/products?priceFilter=under-5000" class="filter-link stext-106 trans-04">
+									Under 5000
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$100.00 - $150.00
-									</a>
+									<a href="/products?priceFilter=under-10000" class="filter-link stext-106 trans-04">
+										Under 10000
+										</a>
 								</li>
 
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$150.00 - $200.00
-									</a>
-								</li>
-
+								 <li class="p-b-6">
+									<a href="/products?priceFilter=over-10000" class="filter-link stext-106 trans-04">
+										Above 10000
+										</a>
+								</li> 
+<!-- 
 								<li class="p-b-6">
 									<a href="#" class="filter-link stext-106 trans-04">
 										$200.00+
 									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter-col3 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Color
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #222;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Black
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Blue
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Grey
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Green
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Red
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle-o"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										White
-									</a>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 
@@ -573,6 +551,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- filter search -->
 			</div>
 
 			<div class="row isotope-grid">
@@ -582,11 +561,11 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img src="uploads/products/<%=product.img1 %>" alt="nooooo">
+									<a href="/productdetails?id=<%=product._id%>">
+										<img src="uploads/products/<%=product.img1 %>" alt="nooooo"></a>
 									<a href="/productdetails?id=<%=product._id%>"
-										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-
-										Quick View
+										class=" flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+										<!-- Quick View -->
 									</a>
 								</div>
 
@@ -598,7 +577,7 @@
 										</a>
 
 										<span class="stext-105 cl3">
-											<%= product.price %>
+											₹<%= product.price %>
 										</span>
 									</div>
 
@@ -615,18 +594,44 @@
 						</div>
 						<% }); %>
 				</div>
-
-
-				<!-- End of the last row -->
-
 			</div>
 
-			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
+				<% if (currentPage> 1) { %>
+					<a href="/products?page=<%= currentPage - 1 %>" class="btn btn-sm btn-stylish rounded-pill m-r-10">
+						Previous
+					</a>
+					<% } %>
+
+						<% for (let i=1; i <=totalPages; i++) { %>
+							<% if (i===currentPage) { %>
+								<span class="btn btn-sm btn-stylish-active rounded-pill m-r-10">
+									<%= i %>
+								</span>
+								<% } else { %>
+									<a href="/products?page=<%= i %>" class="btn btn-sm btn-stylish rounded-pill m-r-10">
+										<%= i %>
+									</a>
+									<% } %>
+										<% } %>
+
+											<% if (currentPage < totalPages) { %>
+												<a href="/products?page=<%= currentPage + 1 %>"
+													class="btn btn-sm btn-stylish rounded-pill m-r-10">
+													Next
+												</a>
+												<% } %>
+			</div>
+
+
+
+			<!-- Load more  -->
+			<!-- <div class="flex-c-m flex-w w-full p-t-45">
 				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More
 				</a>
-			</div>
+			</div> -->
+
 		</div>
 	</div>
 
@@ -789,7 +794,7 @@
 	</div>
 
 	<!-- Modal1 -->
- 
+
 
 	<!--===============================================================================================-->
 	<script src="./assets/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -892,6 +897,50 @@
 	</script>
 	<!--===============================================================================================-->
 
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const searchInput = document.getElementById('search_input');
+			const searchForm = document.getElementById('searchForm');
+	
+			// Get the current URL and parse it to extract the existing query parameters
+			const url = new URL(window.location.href);
+			const queryParams = new URLSearchParams(url.search);
+	
+			// Check if a search query is already present in the URL
+			const existingSearchQuery = queryParams.get('search');
+	
+			// If there's an existing search query, set it as the value of the search input
+			if (existingSearchQuery) {
+				searchInput.value = existingSearchQuery;
+			}
+	
+			// Add a submit event listener to the form
+			searchForm.addEventListener('submit', function(event) {
+				event.preventDefault();
+	
+				// Get the search query from the input field
+				const searchQuery = searchInput.value.trim();
+	
+				// Clear the existing search query from the URL
+				queryParams.delete('search');
+	
+				// If a new search query is entered, add it to the URL as a query parameter
+				if (searchQuery !== '') {
+					queryParams.set('search', searchQuery);
+				}
+	
+				// Set the updated query parameters in the form action and submit the form
+				searchForm.action = `/products?${queryParams.toString()}`;
+				searchForm.submit();
+			});
+		});
+	</script>
+	With this JavaScript code, the form will submit to the /products endpoint with the searchQuery as a query parameter in the URL. If the user enters a search query and clicks the search button, the form will be submitted with the updated query parameters. If the search input is empty, the search query parameter will be removed from the URL. Additionally, if there was an existing search query parameter in the URL when the page loaded, the value will be pre-filled in the search input field.
+	
+	
+	
+	
+	
 	
 	<script src="./assets/js/main.js"></script>
 

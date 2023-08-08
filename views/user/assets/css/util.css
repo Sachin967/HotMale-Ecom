@@ -14,7 +14,7 @@ body, html {
 	font-family: Arial, sans-serif;
 	font-size: 15px;
 	color: #666666;
-
+	text-decoration: none;
 	height: 100%;
 	background-color: #fff;
 	-webkit-box-sizing: border-box;

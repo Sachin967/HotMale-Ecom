@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>OTP Verification</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/forgetpasswordverify" method="post" id="otpVerificationForm">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" value="<%=mobile %>" id="mobile" name="mobile" >
+                            </div>
+                            <div class="form-group">
+                                <label for="otp">OTP</label>
+                                <input type="text" class="form-control" id="otp" name="otp" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Verify OTP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add your custom JavaScript for OTP verification -->
+    <script>
+      // JavaScript code to handle OTP verification
+      // Assuming you have a function named "verifyOTP"
+      function verifyOTP() {
+          // ... (your OTP verification logic)
+
+          // If OTP verification is successful and you have the mobile number in the variable "mobile"
+          const mobile = document.getElementById("mobile").value; // Replace this with your actual mobile number variable
+
+          // Redirect to the "Set Password" page with the mobile number as a URL parameter
+          window.location.href = '/setpassword?mobile=' + encodeURIComponent(mobile);
+      }
+  </script>
+</body>
+</html>

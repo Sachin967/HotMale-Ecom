@@ -6,6 +6,7 @@ const Product = require('../model/product')
 const Category = require('../model/categorymodel')
 const sharp = require('sharp');
 const fs = require('fs');
+const Order = require('../model/ordersM')
 
 const adminControl = {
 
@@ -31,7 +32,7 @@ try {
       try {
         if (await bcrypt.compare(pass, adminDetails.password)) {
           // Setting Session
-          req.session.userEmail = req.body.email;
+          req.session.adminEmail = req.body.email;
           req.session.loggedIn = true;
           req.session.admin = true;
 
@@ -193,10 +194,37 @@ try {
 
   orderGet : async(req,res)=>{
     try {
-      res.render('orders')
+      const orders = await Order.find().populate('user')
+      console.log(orders);
+      res.render('orders',{orders})
     } catch (error) {
       console.log("not found");
     }
+  },
+
+
+  updateOrderStatus : async(req,res)=>{
+    try {
+      const orderId = req.params.orderId;
+      const newStatus = req.body.status;
+       console.log(orderId);
+        const order = await Order.findById(orderId);
+    
+        if (!order) {
+          return res.status(404).json({ message: 'Order not found' });
+        }
+    
+        // Update the orderStatus
+        order.status = newStatus;
+    
+        // Save the updated order
+        await order.save();
+    
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+
+
 }
 module.exports = adminControl;

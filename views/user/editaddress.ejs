@@ -1,0 +1,150 @@
+<%-include('./includes/header') %>
+<div class="row mt-3">
+<div class="col-lg-4">
+  <div class="card mb-4 mx-3 border" style="background-color:#b2b2b2;">
+    <div class="card-body text-center">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+        class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
+      <h5 class="my-3">Hello</h5>
+      <p class="text-muted mb-1"><%= %></p>
+      <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
+      <div class="d-flex justify-content-center mb-2">
+       <a href="/logout" class="btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4 mx-3  mb-lg-0 border">
+    <div class="card-body p-0 border" style="background-color:#b2b2b2;">
+      <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center p-3" style="background-color:#b2b2b2;">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="/order-details" class="text-decoration-none">
+            <h4 class="mb-0"><strong>My Orders</strong></h4>
+          </a>
+        </li>       
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+          <a href="/my-profile">
+            <p class="mb-0"><strong>Profile Information</strong></p>
+          </a>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+          <a href="/getaddress">
+            <p class="mb-0"><strong>Manage Address</strong></p>
+          </a>
+        </li>
+        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+              <p class="mb-0">@mdbootstrap</p>
+            </li> -->
+        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+              <p class="mb-0">mdbootstrap</p>
+            </li> -->
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-lg-8">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Edit Address</h5>
+    </div>
+    <div class="card-body">
+      <!-- Your form to edit an address goes here -->
+      <form  method="post" id="editAddressForm">
+        <div class="form-row">
+          
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" value="<%= address.name %>"  required>
+          </div>
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile" value="<%= address.mobile%>" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="pincode" id="pincodeInput" placeholder="Pincode" value="<%= address.pincode %>" required>
+          </div>
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="city" id="cityInput" placeholder="City" value="<%= address.city %>" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" id="addressInput" name="address" placeholder="Full Address" rows="5" value="<%= address.address %>" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="district" id="districtInput" placeholder="District" value="<%= address.district %>" required>
+          </div>
+          <div class="form-group col-md-6">
+            <select class="form-control" name="state" id="stateInput" required>
+              <option value="" disabled>Select State</option>
+              <option value="state1" <%= address.state === 'state1' ? 'selected' : '' %>>Kerala</option>
+              <option value="state2" <%= address.state === 'state2' ? 'selected' : '' %>>Goa</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>  
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="landmark" id="landmarkInput" placeholder="Landmark" value="<%= address.landmark %>" required>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary mr-2" onclick="cancelEditAddress()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Address</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Add Bootstrap and Font Awesome JS links here -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const editAddressForm = document.getElementById('editAddressForm');
+
+  editAddressForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+      const formData = {
+        name: document.getElementById('editAddressForm').elements['name'].value,
+        mobile: document.getElementById('editAddressForm').elements['mobile'].value,
+        pincode: document.getElementById('editAddressForm').elements['pincode'].value,
+        landmark: document.getElementById('editAddressForm').elements['landmark'].value,
+        state: document.getElementById('editAddressForm').elements['state'].value,
+        district: document.getElementById('editAddressForm').elements['district'].value,
+        address: document.getElementById('editAddressForm').elements['address'].value,
+        city: document.getElementById('editAddressForm').elements['city'].value,
+        
+      };
+
+      const addressId = '<%=address._id %>'; // The address ID passed from the EJS template
+      const response = await fetch(`/editaddress/${addressId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(data.message); // Show success message to the user
+        window.location.href = '/getaddress'; // Redirect to the address list page
+      } else {
+        alert(data.message); // Show error message to the user
+      }
+    } catch (error) {
+      console.log(error.message);
+      alert('An error occurred while trying to update the address. Please try again.');
+    }
+  });
+});
+
+function cancelEditAddress() {
+  window.location.href = '/getaddress'; // Redirect to the address list page
+}
+</script>
+<%-include('./includes/footer') %>

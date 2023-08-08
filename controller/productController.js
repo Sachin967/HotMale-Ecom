@@ -1,6 +1,6 @@
 const product = require('../model/product')
 const Category = require('../model/categorymodel')
-
+const Wishlist = require('../model/wishlist')
 
 const productControl ={
 
@@ -181,6 +181,55 @@ const productControl ={
     }
   }, 
 
+  getWishlist : async(req,res)=>{
+    try {
+      res.render('wishlist')
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  addtoWishlist : async(req,res)=>{
+    try {
+      const  productId  = req.query.productId;
+    const userId = req.session.userId;
+      console.log(productId);
+    // Check if the product already exists in the user's wishlist
+    const wishlist = await Wishlist.findOneAndUpdate(
+      { user: userId },
+      { $addToSet: { products: productId } },
+      { upsert: true, new: true } 
+    ); 
+    console.log(wishlist);
+
+    res.status(200).json({success:true, message: 'Product added to wishlist' });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  removefromWishlist : async(req,res)=>{
+    try {
+      const productId = req.query.productId;
+      const userId = req.session.userId;
+  
+      const wishlist = await Wishlist.findOneAndUpdate(
+        { user: userId },
+        { $pull: { products: productId } },
+        { new: true }
+      );
+  
+      if (!wishlist) {
+        return res.status(404).json({ success: false, message: 'Product not found in wishlist' });
+      }
+  
+      res.status(200).json({ success: true, message: 'Product removed from wishlist' });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  }
 
 
 }

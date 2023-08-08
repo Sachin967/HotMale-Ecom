@@ -1,15 +1,5 @@
 const mongoose = require("mongoose");
 
-const addressSchema = new mongoose.Schema({
-  name: { type:String, required : true},
-  mobile: {type:String, required : true},
-  landmark: { type: String, required: false },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  pincode: { type: String, required: true },
-  district: { type: String, required: true },
-  address: { type: String, required: true },
-});
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -40,12 +30,13 @@ const UserSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   }, 
-  address: [addressSchema],
   
   gender: { 
     type: String,
     enum: ['male', 'female', 'other'], 
     required: false },
+    
+ 
 });
 
 const User =new mongoose.model("User", UserSchema);

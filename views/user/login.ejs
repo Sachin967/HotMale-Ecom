@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+    @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
     * {
       box-sizing: border-box;
@@ -16,7 +16,7 @@
     }
 
     body {
-      background: #F2F2F2;
+      background: #f2f2f2;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -51,28 +51,28 @@
       top: 50%;
       left: 16px;
       transform: translateY(-50%);
-      color: #7875B5;
+      color: #7875b5;
     }
 
     .login-card__input {
       width: 100%;
       border: none;
-      border-bottom: 2px solid #D1D1D4;
+      border-bottom: 2px solid #d1d1d4;
       background: none;
       padding: 10px 40px 10px 40px;
       font-weight: 700;
-      color: #4C489D;
+      color: #4c489d;
       border-radius: 4px;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .login-card__input:focus {
       outline: none;
-      border-bottom-color: #6A679E;
+      border-bottom-color: #6a679e;
     }
 
     .login-card__submit {
-      background: #4C489D;
+      background: #4c489d;
       font-size: 16px;
       padding: 16px;
       border-radius: 26px;
@@ -81,11 +81,11 @@
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .login-card__submit:hover {
-      background: #645EB5;
+      background: #645eb5;
     }
 
     .login-card__footer {
@@ -94,7 +94,7 @@
     }
 
     .login-card__footer-link {
-      color: #4C489D;
+      color: #4c489d;
       text-decoration: none;
       font-weight: 700;
       margin-right: 10px;
@@ -109,60 +109,64 @@
 
     .social-login__icon {
       padding: 10px;
-      color: #7875B5;
+      color: #7875b5;
       text-decoration: none;
       font-size: 24px;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .social-login__icon:hover {
-      color: #645EB5;
+      color: #645eb5;
     }
   </style>
 </head>
 
 <body>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
   <div class="login-card">
     <div class="login-card__logo">
-      <img src="./assets/images/My project-2.png" style="border-radius: 50%;" alt="Your Logo">
+      <img src="./assets/images/My project-2.png" style="border-radius: 50%" alt="Your Logo" />
     </div>
     <form class="form-horizontal" method="post" action="/login">
       <% if (locals.error) { %>
-      <h5 class="alert alert-danger">
-        <%= msg %>
-      </h5>
-      <% } %>
-      <div class="login-card__field">
-        <i class="fa fa-envelope fa-lg login-card__icon" aria-hidden="true"></i>
-        <input type="email" class="login-card__input" name="email" id="email" placeholder="Enter your Email" />
-      </div>
-      <div class="login-card__field">
-        <i class="fa fa-lock fa-lg login-card__icon" aria-hidden="true"></i>
-        <input type="password" class="login-card__input" name="password" id="password"
-          placeholder="Enter your Password" />
-      </div>
-      <div class="login-card__field">
-        <button type="submit" class="login-card__submit">Login</button>
-      </div>
+        <h5 class="alert alert-danger">
+          <%= msg %>
+        </h5>
+        <% } %>
+          <div class="login-card__field">
+            <i class="fa fa-envelope fa-lg login-card__icon" aria-hidden="true"></i>
+            <input type="email" class="login-card__input" name="email" id="email" placeholder="Enter your Email" />
+          </div>
+          <div class="login-card__field">
+            <i class="fa fa-lock fa-lg login-card__icon" aria-hidden="true"></i>
+            <input type="password" class="login-card__input" name="password" id="password"
+              placeholder="Enter your Password" />
+          </div>
+          <div class="login-card__field">
+            <button type="submit" class="login-card__submit">Login</button>
+          </div>
     </form>
     <form class="form-horizontal" method="post" action="/otp-login">
       <!-- <h6>OTP Login</h6> -->
       <% if (locals.otpError) { %>
-      <h5 class="alert alert-danger mt-3">
-        <%=msg %>
-      </h5>
-      <% } %>
-      <div class="login-card__field">
-        <i class="fa fa-phone fa login-card__icon" aria-hidden="true"></i>
-        <input type="text" class="login-card__input" name="mobile" id="mobile" placeholder="Enter your mobile number" />
-      </div>
-      <div class="login-card__field">
-        <button type="submit" class="login-card__submit my-2">Otp Login</button>
-      </div>
+        <h5 class="alert alert-danger mt-3">
+          <%=msg %>
+        </h5>
+        <% } %>
+          <div class="login-card__field">
+            <i class="fa fa-phone fa login-card__icon" aria-hidden="true"></i>
+            <input type="text" class="login-card__input" name="mobile" id="mobile"
+              placeholder="Enter your mobile number" />
+          </div>
+          <div class="login-card__field">
+            <button type="submit" class="login-card__submit my-2">
+              Otp Login
+            </button>
+          </div>
     </form>
     <div class="login-card__footer">
       <a href="/signup" class="login-card__footer-link">Sign Up</a>
-      <a href="/forgot-password" class="login-card__footer-link">Forgot Password</a>
+      <a href="/forgetpassword" class="login-card__footer-link">Forgot Password</a>
     </div>
     <div class="social-icons">
       <a href="#" class="social-login__icon">
@@ -179,3 +183,4 @@
 </body>
 
 </html>
+<script></script>

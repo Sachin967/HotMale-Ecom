@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce Wishlist</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Add custom CSS for wishlist style -->
+  <style>
+    /* Custom styles for wishlist */
+    .container {
+      margin-top: 50px;
+    }
+    .cart-table {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .table-content {
+      overflow-x: auto;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+    .plantmore-product-thumbnail img {
+      max-width: 80px;
+      border-radius: 4px;
+    }
+    .plantmore-product-name a {
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .plantmore-product-price .amount {
+      color: #009688;
+      font-weight: 600;
+    }
+    .plantmore-product-stock-status .in-stock {
+      color: #4CAF50;
+      font-weight: 600;
+    }
+    .plantmore-product-stock-status .out-stock {
+      color: #F44336;
+      font-weight: 600;
+    }
+    .plantmore-product-add-cart a {
+      background-color: #009688;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+    .plantmore-product-add-cart a:hover {
+      background-color: #00796B;
+    }
+    .plantmore-product-remove a {
+      color: #F44336;
+    }
+    .plantmore-product-remove a:hover {
+      color: #D32F2F;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+          <form action="#" class="cart-table">
+              <div class=" table-content table-responsive">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th class="plantmore-product-thumbnail">Images</th>
+                              <th class="cart-product-name">Product</th>
+                              <th class="plantmore-product-price">Unit Price</th>
+                              <th class="plantmore-product-stock-status">Stock Status</th>
+                              <th class="plantmore-product-add-cart">Add to cart</th>
+                              <th class="plantmore-product-remove">Remove</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/cart-03.jpg" alt=""></a></td>
+                              <td class="plantmore-product-name"><a href="#">Nullam maximus</a></td>
+                              <td class="plantmore-product-price"><span class="amount">$23.39</span></td>
+                              <td class="plantmore-product-stock-status"><span class="in-stock">in stock</span></td>
+                              <td class="plantmore-product-add-cart"><a href="#">add to cart</a></td>
+                              <td class="plantmore-product-remove"><a href="#"><i class="zmdi zmdi-close"></i></a></td>
+                          </tr>
+                          <tr>
+                              <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/cart-02.jpg" alt=""></a></td>
+                              <td class="plantmore-product-name"><a href="#">Natus erro</a></td>
+                              <td class="plantmore-product-price"><span class="amount">$30.50</span></td>
+                              <td class="plantmore-product-stock-status"><span class="in-stock">in stock</span></td>
+                              <td class="plantmore-product-add-cart"><a href="#">add to cart</a></td>
+                              <td class="plantmore-product-remove"><a href="#"><i class="zmdi zmdi-close"></i></a></td>
+                          </tr>
+                          <tr>
+                              <td class="plantmore-product-thumbnail"><a href="#"><img src="assets/images/other/cart-01.jpg" alt=""></a></td>
+                              <td class="plantmore-product-name"><a href="#">Sit voluptatem</a></td>
+                              <td class="plantmore-product-price"><span class="amount">$40.19</span></td>
+                              <td class="plantmore-product-stock-status"><span class="out-stock">out stock</span></td>
+                              <td class="plantmore-product-add-cart"><a href="#">add to cart</a></td>
+                              <td class="plantmore-product-remove"><a href="#"><i class="zmdi zmdi-close"></i></a></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<!-- Add Bootstrap and jQuery scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

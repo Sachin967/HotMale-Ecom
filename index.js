@@ -16,8 +16,10 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+// mongoose.set("debug", true);
+
 const express = require('express');
-const session = require('express-session')
+// const session = require('express-session')
 const app = express();
 const userRoute = require('./routes/userRoute');
 const bodyParser = require('body-parser');
@@ -25,11 +27,6 @@ const adminRoute = require('./routes/adminRoute');
 
 
 
-app.use(session({
-  secret: 'key',
-  resave: false,
-  saveUninitialized: true
-}))
 app.set('view engine','ejs')
 
 

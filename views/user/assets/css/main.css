@@ -35,7 +35,9 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 -------------------------------------------------------------------*/
 
 
-
+*{
+  text-decoration: none;
+}
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -1477,12 +1479,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .slick3-dots li img {
-  width: 100%;
+  width: 40px;
 }
 
 .slick3-dot-overlay {
   position: absolute;
-  width: 100%;
+  width: 40px;
   height: 100%;
   top: 0;
   left: 0;

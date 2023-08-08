@@ -1,0 +1,233 @@
+<!--
+
+    <div class="container">
+        <i class="fas fa-check-circle check-icon"></i>
+        <h2>Order Successful</h2>
+        <a href="#" class="btn-shop-more">Shop more</a>
+    </div>
+
+    <div class="invoice-container">
+        <div class="row invoice row-printable">
+            <div class="col-md-12">
+                <div class="panel panel-default plain" id="dash_0">
+                    <div class="panel-body p30">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="invoice-logo"><img src="/images/logo.png" alt="Invoice logo"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="invoice-from">
+                                    <ul>
+                                        <li><strong>Invoiced To</strong></li>
+                                        <li></li>
+                                        <li>{{order.full_address}}</li>
+                                        <li>{{order.city}}, {{order.state}}</li>
+                                        <li>{{order.country}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="invoice-details mt25">
+                                <div class="well">
+                                    <ul class="list-unstyled mb0">
+                                        <li><strong>Order</strong> #{{order_number}}</li>
+                                        <li><strong>Order Date:</strong> {{order.created_at}}</li>
+                                        <li><strong>Status:</strong> {{order.status}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="invoice-items">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="per70 text-center">Products</th>
+                                                <th class="per5 text-center">Qty</th>
+                                                <th class="per25 text-center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Product Brand 1 Model 1</td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-center">₹200</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Brand 2 Model 2</td>
+                                                <td class="text-center">1</td>
+                                                <td class="text-center">₹150</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="2" class="text-right">Sub Total:</th>
+                                                <th class="text-center">₹350</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-right">Tax:</th>
+                                                <th class="text-center">₹30</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-right">Grand Total:</th>
+                                                <th class="text-center">₹380</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="invoice-footer mt25">
+                                <p>Thank you for shopping with us!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      /* margin: 0;
+      padding: 0; */
+  }
+
+  .container {
+      padding-top: 50px;
+      text-align: center;
+  }
+
+  .check-icon {
+      font-size: 72px;
+      margin-bottom: 20px;
+      color: #28A745;
+  }
+
+  h2 {
+      text-align: center;
+  }
+
+  .btn-shop-more {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #28A745;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-top: 20px;
+  }
+
+  .invoice-container {
+      margin: 0 auto;
+      width: 50%;
+      padding: 50px;
+      background: #f1f1f1;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .invoice-logo img {
+      max-height: 40px;
+  }
+
+  .invoice-from ul {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+      margin: 0;
+  }
+
+  .invoice-from li {
+      margin-bottom: 5px;
+  }
+
+  .invoice-details {
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .invoice-details li {
+      list-style: none;
+      margin-bottom: 5px;
+  }
+
+  .invoice-items table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+  }
+
+  .invoice-items th,
+  .invoice-items td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+  }
+
+  .invoice-footer {
+      margin-top: 25px;
+      text-align: center;
+  }
+</style>
+  
+<script src="https://kit.fontawesome.com/a8469362d0.js" crossorigin="anonymous"></script> -->
+
+<%-include('./includes/header') %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Successful</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/a8469362d0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <style>
+        
+    /* Custom styles for the address-details div */
+    .address-details {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .address-details h3 {
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .address-details p {
+      margin: 5px 0;
+    }
+ 
+    </style>
+  <div class="container mt-5 text-center">
+    <i class="fas fa-check-circle check-icon" style="color: #28A745; font-size: 72px;"></i>
+    <h2>Order Successful</h2>
+    <p>Thank you for your purchase!</p>
+    <div class="address-details ">
+        <h3>Delivery Address:</h3>
+        <p>Name: <%= order.userAddress.name %></p>
+        <p>Mobile: <%= order.userAddress.mobile %></p>
+        <p>Address: <%= order.userAddress.address %></p>
+        <p>City: <%= order.userAddress.city %></p>
+        <p>Pincode: <%= order.userAddress.pincode %></p>
+        <p>District: <%= order.userAddress.district %></p>
+        <p>State: <%= order.userAddress.state %></p>
+        <!-- <p>Landmark: <%= order.userAddress.landmark %></p> -->
+      </div>
+    <a href="/order-details" class="btn btn-primary" my-3>View Orders</a>
+    <a href="/" class="btn btn-success my-3">Continue Shopping</a>
+  </div>
+</body>
+</html>
+<%-include('./includes/footer') %>
