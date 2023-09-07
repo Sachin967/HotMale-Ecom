@@ -18,13 +18,9 @@
 }
 
 .table thead th {
-  background-color: #333;
+  background-color: #4a10af;
   color: #fff;
   text-align: left;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 .form-control {
@@ -33,6 +29,14 @@
 
 .btn {
   padding: 8px 12px;
+}
+.delivered-row {
+  background-color: #ccffcc; /* Change to your desired green color */
+  color: #000; /* Change to a suitable text color for better readability */
+}
+.cancelled-row {
+  background-color: #ffcccc; /* Change to your desired red color */
+  color: #fff; /* Change to a suitable text color for better readability */
 }
 
   </style>
@@ -46,9 +50,9 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between mt-2">
           <a href="/dashboard" class="text-nowrap logo-img">
-            <img src="../user/assets/images/My project-2.png" width="180" alt="" />
+            <img src="../assets/images/My project-2.png" width="80" style="border-radius:50%;" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -119,19 +123,34 @@
                 <span class="hide-menu">Orders</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/showcoupons" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item"> 
+              <a class="sidebar-link" href="/getbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Banner</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Add Banner</span>
+              </a>
+            </li>
+            <a href="/adminlogout" class="btn btn-outline-warning ">Logout</a>  
           </ul>
-          <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-            <div class="d-flex">
-              <div class="unlimited-access-title me-3">
-                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
-                <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank"
-                  class="btn btn-primary fs-2 fw-semibold lh-sm">Buy pro</a>
-              </div>
-              <div class="unlimited-access-img">
-                <img src="./assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div> -->
+          
         </nav>
         <!-- End Sidebar navigation -->
       </div>
@@ -155,6 +174,7 @@
                 <div class="notification bg-primary rounded-circle"></div>
               </a>
             </li>
+
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
@@ -190,11 +210,12 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-body">
-            <div class="main-panel">
+           
+
               <div class="content-wrapper">
                 <div class="row">
                   <div class="col-lg-12 grid-margin stretch-card">
-                    <div class="card-body">
+                    
                       <div class="table-responsive">
                         <h1 class="mb-4">Orders</h1>
                         <table class="table table-bordered">
@@ -202,42 +223,42 @@
                             <tr>
                               <th scope="col">Order ID</th>
                               <th scope="col">Customer Name</th>
+                              <!-- <th scope="col">Product Name</th> -->
                               <th scope="col">Order Date</th>
                               <th scope="col">Total Price</th>
-                              <th scope="col">Status</th>
-                              <th scope="col">Actions</th>
+                             
+                              <th scope="col">Details</th>
                             </tr>
                           </thead>
                           <tbody>
+                            <% const processedOrders = {}; %>
                             <% orders.forEach(orderItem => { %>
-                            <tr>
-                              <td><%= orderItem._id %></td>
-                              <td><%= orderItem.user.name %></td>
-                              <td><%=new Date(orderItem.createdAt).toLocaleDateString() %></td>
-                              <td>₹<%=orderItem.total %></td>
-                              <td><%= orderItem.status %></td>
-                              <td>
-                                <form action="/update-status/<%= orderItem._id %>" method="POST">
-                                  <select name="status" class="form-control">
-                                    <option value="Pending" <%= orderItem.status === 'Pending' ? 'selected' : '' %>>Pending</option>
-                                    <option value="Processing" <%= orderItem.status === 'Processing' ? 'selected' : '' %>>Processing</option>
-                                    <option value="Shipped" <%= orderItem.status === 'Shipped' ? 'selected' : '' %>>Shipped</option>
-                                    <option value="Delivered" <%= orderItem.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
-                                    <option value="Cancelled" <%= orderItem.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
-                                  </select>
-                                  <button type="submit" class="btn btn-primary mt-2">Update</button>
-                                </form>
-                              </td>
-                            </tr>
+                              <% /* Check if we have already processed this order */ %>
+                              <% if (!processedOrders[orderItem._id]) { %>
+                                <% processedOrders[orderItem._id] = true; %>
+                                <tr>
+                                  <td><%= orderItem._id %></td>
+                                  <td><%= orderItem.user.name %></td>
+                                  <td><%= new Date(orderItem.createdAt).toLocaleDateString() %></td>
+                                  <td>₹<%= orderItem.total %></td>
+                                  <td><a class="btn btn-outline-warning" href="/moredetails?id=<%= orderItem._id %>">View Details</a></td>
+                                </tr>
+                              <% } %>
+                              <!-- Check if orderItem.product exists before accessing its properties -->
+                                <tr>
+                                  <td colspan="5"></td>
+                                </tr>
                             <% }) %>
-                          </tbody>
-                        </table>
+                          </tbody>  
+                       </table>
                       </div>
-                    </div>
+               
+
                   </div>
                 </div>
               </div>
-            </div>
+          
+
           </div>
         </div>
       </div>

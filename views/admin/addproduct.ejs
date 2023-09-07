@@ -10,21 +10,26 @@
   <style>
     /* Custom styles for image preview */
     .img-container {
-      max-width: 200px; /* Adjust the maximum width as needed */
-      max-height: 200px; /* Adjust the maximum height as needed */
-      overflow: hidden; /* Hide any overflow beyond the maximum size */
-      margin: 5px; /* Add some margin between images */
+      max-width: 600px;
+      /* Adjust the maximum width as needed */
+      max-height: 600px;
+      /* Adjust the maximum height as needed */
+      overflow: hidden;
+      /* Hide any overflow beyond the maximum size */
+      margin: 5px;
+      /* Add some margin between images */
     }
-  
+
     .img-preview {
       width: 100%;
       height: auto;
     }
   </style>
-  
+<link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
 </head>
 
 <body>
+  <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -32,9 +37,9 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between mt-2">
           <a href="/dashboard" class="text-nowrap logo-img">
-            <img src="../user/assets/images/My project-2.png" width="180" alt="" />
+            <img src="../assets/images/My project-2.png" width="80" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -55,7 +60,7 @@
                 <span class="hide-menu">Dashboard</span>
               </a>
             </li>
-           
+
             <li class="sidebar-item">
               <a class="sidebar-link" href="/viewproducts" aria-expanded="false">
                 <span>
@@ -104,6 +109,32 @@
                 <span class="hide-menu">Orders</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/showcoupons" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/getbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Banner</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Add Banner</span>
+              </a>
+            </li>
+            <a href="/adminlogout" class="btn btn-outline-warning ">Logout</a>
           </ul>
           <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">
@@ -142,7 +173,8 @@
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Logout</a>
+              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank"
+                class="btn btn-primary">Logout</a>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -175,63 +207,305 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Add Product</h4>
-            
+
             <form class="forms-sample" enctype="multipart/form-data" method="post" action="/addproduct">
               <div class="form-group">
                 <label for="exampleInputName1">Product Name</label>
-                <input type="text" name="pname" class="form-control" id="exampleInputName1" placeholder="Product Title" required>
+                <input type="text" name="pname" class="form-control" id="exampleInputName1" placeholder="Product Title"
+                  required>
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail3">Category</label>
                 <select name="category" id="category">
-                  <% categories.forEach((category) => { %>
-                    <option value="<%= category._id %>"><%= category.categorytitle %></option>
+                  <% categories.forEach((category)=> { %>
+                    <option value="<%= category._id %>">
+                      <%= category.categorytitle %>
+                    </option>
 
-                  <% }) %>
+                    <% }) %>
                 </select>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword4">Price</label>
-                <input type="number" name="price" class="form-control"  placeholder="Price in rupees"  required>
+                <input type="number" name="price" class="form-control" placeholder="Price in rupees" required>
+              </div>
+              <div class="form-group">
+                <label for="discountPercentage">Discount Percentage:</label>
+                <input type="number" id="discountPercentage" name="discountPercentage" ><br><br>
+              </div>
+              <div class="form-group">
+                <label for="offerValidFrom">Offer Valid From:</label>
+                <input type="date" id="offerValidFrom" name="offerValidFrom"><br><br>
+              </div>
+              <div class="form-group">
+                <label for="offerValidUntil">Offer Valid Until:</label>
+                <input type="date" id="offerValidUntil" name="offerValidUntil"><br><br>
               </div>
               <div class="form-group">
                 <label for="exampleTextarea1">Description</label>
                 <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"></textarea>
               </div>
-           
-      
-              <!-- File input for multiple images -->
-              <div class="mb-3">
-                <label for="formFile1" class="form-label">Select 4 Images</label>
-                <input class="form-control" name="image1" type="file" id="formFile1" accept="image/*" multiple required>
+              <div class="col-lg-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4>Media</h4>
+                  </div>
+                  <div class="input-upload">
+                    <img src="/imgs/theme/upload.svg" id="imgView1" alt="">
+                    <input class="form-control" id="input1" name="images"
+                      onchange="viewImage1(event),viewImage(event, 1)" type="file">
+                  </div>
+                  <div class="image-cropper" style="display:none;">
+                    <img src="" id="croppedImg1" alt="">
+                    <button type="button" id="saveButton1" class="btn-sm btn-primary">Save</button>
+                  </div>
+                  <span id="imageError"></span>
+                </div> <!-- card end// -->
               </div>
-              <!-- Image preview container -->
-              <div id="imagePreview"></div>
-              
-      
-              <div class="form-group">
-                <label for="exampleTextarea1">Stock</label>
-                <input class="form-control" type="number" min="0" name="stock" id="" required>
+              <div class="col-lg-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4>Media</h4>
+                  </div>
+                  <div class="input-upload">
+                    <img src="/imgs/theme/upload.svg" id="imgView2" alt="">
+                    <input class="form-control" id="input2" name="images"
+                      onchange="viewImage2(event),viewImage(event, 2)" type="file">
+                  </div>
+                  <div class="image-cropper" style="display:none;">
+                    <img src="" id="croppedImg2" alt="">
+                    <button type="button" id="saveButton2" class="btn-sm btn-primary">Save</button>
+                  </div>
+                  <span id="imageError"></span>
+                </div> <!-- card end// -->
               </div>
-      
-              <button type="submit" class="btn btn-primary mr-2">Add Product</button>
-              <button class="btn btn-light">Cancel</button>
+              <div class="col-lg-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4>Media</h4>
+                  </div>
+                  <div class="input-upload">
+                    <img src="/imgs/theme/upload.svg" id="imgView3" alt="">
+                    <input class="form-control" id="input3" name="images"
+                      onchange="viewImage3(event),viewImage(event, 3)" type="file">
+                  </div>
+                  <div class="image-cropper" style="display:none;">
+                    <img src="" id="croppedImg3" alt="">
+                    <button type="button" id="saveButton3" class="btn-sm btn-primary">Save</button>
+                  </div>
+                  <span id="imageError"></span>
+                </div>
+
+
+
+                <div class="form-group">
+                  <label for="exampleTextarea1">Stock</label>
+                  <input class="form-control" type="number" min="0" name="stock" id="" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Add Product</button>
+                <button class="btn btn-light">Cancel</button>
             </form>
           </div>
         </div>
       </div>
       <script>
-        // Attach the function to the file input change event
-        document.getElementById("formFile1").addEventListener("change", previewImages);
+     
+
       </script>
-  <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/js/sidebarmenu.js"></script>
-  <script src="./assets/js/app.min.js"></script>
-  <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="./assets/js/imgprev.js"></script>
-  
-  
+        <!-- Add jQuery (required by Cropper.js) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+      <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="./assets/js/sidebarmenu.js"></script>
+      <script src="./assets/js/app.min.js"></script>
+      <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
+      <script src="./assets/js/imgprev.js"></script>
+      <!-- Add jQuery (required by Cropper.js) -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      <!-- Add Cropper.js -->
+      <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
+      <!-- Add this script tag in the head section of your HTML -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const form = document.querySelector('.forms-sample');
+          form.addEventListener('submit', function (event) {
+            if (!validateForm()) {
+              event.preventDefault();
+            }
+          });
+
+          function validateForm() {
+            const productName = document.getElementById('exampleInputName1').value;
+            const price = document.querySelector('input[name="price"]').value;
+            const description = document.querySelector('textarea[name="description"]').value;
+            const stock = document.querySelector('input[name="stock"]').value;
+            const imageInput = document.querySelector('input[name="image1"]');
+
+            let isValid = true;
+
+            // Validate Product Name
+            if (productName.trim() === '') {
+              isValid = false;
+              // Show error for product name
+              // Example: document.getElementById('productNameError').textContent = 'Product name is required.';
+            }
+
+            // Validate Price
+            if (isNaN(price) || parseInt(price) <= 0) {
+              isValid = false;
+              // Show error for price
+            }
+
+            // Validate Description
+            if (description.trim() === '') {
+              isValid = false;
+              // Show error for description
+            }
+
+            // Validate Stock
+            if (isNaN(stock) || parseInt(stock) < 0) {
+              isValid = false;
+              // Show error for stock
+            }
+
+            // Validate Images
+            if (imageInput.files.length === 0) {
+              isValid = false;
+              // Show error for images
+              const imageError = document.getElementById('imageError');
+              imageError.textContent = 'Please select an image.';
+              imageError.classList.remove('d-none'); // Show the error message
+            } else {
+              const allowedFormats = ['image/jpeg', 'image/png', 'image/gif'];
+              const selectedFileType = imageInput.files[0].type;
+
+              if (!allowedFormats.includes(selectedFileType)) {
+                isValid = false;
+                const imageError = document.getElementById('imageError');
+                imageError.textContent = 'Invalid image format. Please select a JPEG, PNG, or GIF image.';
+                imageError.classList.remove('d-none');
+              } else {
+                // Hide the image error message
+                const imageError = document.getElementById('imageError');
+                imageError.textContent = '';
+                imageError.classList.add('d-none');
+              }
+            }
+
+            return isValid;
+          }
+        });
+      </script>
+
+
+      <script>
+        function viewImage1(event) {
+          document.getElementById('imgView1').src = URL.createObjectURL(event.target.files[0])
+        }
+
+        function viewImage2(event) {
+          document.getElementById('imgView2').src = URL.createObjectURL(event.target.files[0])
+        }
+
+        function viewImage3(event) {
+          document.getElementById('imgView3').src = URL.createObjectURL(event.target.files[0])
+        }
+      </script>
+      <script>
+
+        function viewImage(event, index) {
+          let input = event.target;
+          let reader = new FileReader();
+
+          reader.onload = function () {
+            let dataURL = reader.result;
+
+            let image = new Image();
+            image.src = dataURL;
+
+            image.onload = function () {
+              // Create a canvas element for resizing
+              let canvas = document.createElement('canvas');
+              let ctx = canvas.getContext('2d');
+
+              // Set the maximum width and height for the preview
+              let maxWidth = 600; // Adjust this value as needed
+              let maxHeight = 600; // Adjust this value as needed
+
+              // Calculate new dimensions while maintaining aspect ratio
+              let width = image.width;
+              let height = image.height;
+
+              if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+              }
+
+              if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+              }
+
+              // Set canvas dimensions
+              canvas.width = width;
+              canvas.height = height;
+
+              // Draw the resized image onto the canvas
+              ctx.drawImage(image, 0, 0, width, height);
+
+              // Get the resized image as a data URL
+              let resizedDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+
+              let previewImage = document.getElementById('imgView' + index);
+              previewImage.src = resizedDataUrl;
+
+              // Initialize Cropper.js on the resized image
+              let cropper = new Cropper(previewImage, {
+                aspectRatio: 1 / 1,
+                viewMode: 1,
+                guides: true,
+                background: false,
+                autoCropArea: 1,
+                zoomable: true,
+              });
+
+              // Show the image cropper container
+              let cropperContainer = document.querySelector('#croppedImg' + index).parentNode;
+              cropperContainer.style.display = 'block';
+
+              // Update the cropped image when the "Save" button is clicked
+              let saveButton = document.querySelector('#saveButton' + index);
+              saveButton.addEventListener('click', async function () {
+                let croppedCanvas = cropper.getCroppedCanvas({
+                  width: 600,
+                  height: 600
+                });
+                let croppedImage = document.getElementById("croppedImg" + index);
+                croppedImage.src = croppedCanvas.toDataURL('image/jpeg', 1.0);
+
+                // Generate a unique name for the cropped image file based on the current timestamp
+                let timestamp = new Date().getTime();
+                let fileName = `cropped-img-${timestamp}-${index}.png`;
+
+                await croppedCanvas.toBlob(blob => {
+                  let input = document.getElementById('input' + index)
+                  let imgFile = new File([blob], fileName, blob)
+                  const fileList = new DataTransfer();
+                  fileList.items.add(imgFile);
+                  input.files = fileList.files
+                });
+                // cropperContainer.style.display = 'none';
+              });
+            }
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      </script>
+
+
 </body>
 
 </html>

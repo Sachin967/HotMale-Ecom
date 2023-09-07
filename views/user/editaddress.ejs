@@ -1,44 +1,44 @@
 <%-include('./includes/header') %>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="row mt-3">
 <div class="col-lg-4">
-  <div class="card mb-4 mx-3 border" style="background-color:#b2b2b2;">
+  <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
     <div class="card-body text-center">
-      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+      <img src="./assets//images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
         class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
-      <h5 class="my-3">Hello</h5>
-      <p class="text-muted mb-1"><%= %></p>
+      <h5 class="my-3" style="color: aliceblue;">Hello</h5>
+      <p class="text-muted mb-0"><%= %></p>
       <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
-      <div class="d-flex justify-content-center mb-2">
-       <a href="/logout" class="btn btn-danger">Logout</a>
+      <div class="d-flex justify-content-center mb-0">
+    
+        <a href="/logout" class="btn btn-danger">Logout</a>
       </div>
     </div>
   </div>
-  <div class="card mb-4 mx-3  mb-lg-0 border">
+  <div class="card mb-0 mx-3  mb-lg-0 border">
     <div class="card-body p-0 border" style="background-color:#b2b2b2;">
-      <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center p-3" style="background-color:#b2b2b2;">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <a href="/order-details" class="text-decoration-none">
-            <h4 class="mb-0"><strong>My Orders</strong></h4>
-          </a>
-        </li>       
-        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
-          <a href="/my-profile">
-            <p class="mb-0"><strong>Profile Information</strong></p>
+      <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+          <a href="/order-details">
+            <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
           </a>
         </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+        
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+          <a href="/wallet">
+              <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
+         </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
           <a href="/getaddress">
-            <p class="mb-0"><strong>Manage Address</strong></p>
+            <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
           </a>
         </li>
-        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-              <p class="mb-0">@mdbootstrap</p>
-            </li> -->
-        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-              <p class="mb-0">mdbootstrap</p>
-            </li> -->
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+          <a href="/my-profile">
+            <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
+          </a>
+        </li>
+       
       </ul>
     </div>
   </div>
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="form-group">
-          <textarea class="form-control" id="addressInput" name="address" placeholder="Full Address" rows="5" value="<%= address.address %>" required></textarea>
+          <textarea class="form-control" id="addressInput" name="address" placeholder="Full Address" rows="5"  required><%=address.address %></textarea>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
@@ -101,6 +101,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
   const editAddressForm = document.getElementById('editAddressForm');
@@ -131,7 +132,13 @@
       const data = await response.json();
       
       if (data.success) {
-        alert(data.message); // Show success message to the user
+        Toastify({
+    text: data.message,
+    duration: 2000, // Display the toast for 5 seconds
+    gravity: "top", // Position the toast at the top
+    position: "center", // Position the toast on the right side
+    backgroundColor: "rgb(34,193,195)", // Customize the toast background color
+  }).showToast(); // Show success message to the user
         window.location.href = '/getaddress'; // Redirect to the address list page
       } else {
         alert(data.message); // Show error message to the user
@@ -147,4 +154,6 @@ function cancelEditAddress() {
   window.location.href = '/getaddress'; // Redirect to the address list page
 }
 </script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
+
 <%-include('./includes/footer') %>

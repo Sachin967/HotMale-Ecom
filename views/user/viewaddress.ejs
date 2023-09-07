@@ -2,51 +2,49 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="row mt-3">
 <div class="col-lg-4">
-  <div class="card mb-4 mx-3 border" style="background-color:#b2b2b2;">
+  <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
     <div class="card-body text-center">
-      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+      <img src="./assets//images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
         class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
       <h5 class="my-3" style="color: aliceblue;">Hello</h5>
-      <p class="text-muted mb-1"><%= %></p>
+      <p class="text-muted mb-0"><%= %></p>
       <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
-      <div class="d-flex justify-content-center mb-2">
+      <div class="d-flex justify-content-center mb-0">
     
         <a href="/logout" class="btn btn-danger">Logout</a>
       </div>
     </div>
   </div>
-  <div class="card mb-4 mx-3  mb-lg-0 border">
+  <div class="card mb-0 mx-3  mb-lg-0 border">
     <div class="card-body p-0 border" style="background-color:#b2b2b2;">
       <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
-        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
           <a href="/order-details">
-            <h4 class="mb-0" style="color:#0d6efd;"><Strong>My Orders</Strong></h4>
+            <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
           </a>
         </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
-          <a href="/my-profile">
-            <p class="mb-0" style="color: #0d6efd;"><strong>Profile Information</strong></p>
-          </a>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+        
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+          <a href="/wallet">
+              <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
+         </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
           <a href="/getaddress">
-            <p class="mb-0" style="color:#0d6efd;"><strong>Manage Address</strong></p>
+            <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
           </a>
         </li>
-        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-              <p class="mb-0">@mdbootstrap</p>
-            </li> -->
-        <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-              <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-              <p class="mb-0">mdbootstrap</p>
-            </li> -->
+        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+          <a href="/my-profile">
+            <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
+          </a>
+        </li>
+       
       </ul>
     </div>
   </div>
 </div>
 <div class="col-lg-8" id="manageAddress">
-  <div class="container mt-5">
+  <div class="container mt-0">
     <div class="card">
       <div class="card-header">
         <h5 class="card-title">Manage Address</h5>
@@ -57,12 +55,12 @@
         <% if (addresses && addresses.length > 0) { %>
           <div class="address-list">
             <% addresses.forEach(function (address) { %>
-              <div class="address-item">
+              <div class="address-item" data-address-id="<%=address._id%>">
                 <p class="name-mobile"><%=address.name %>&nbsp;<%=address.mobile %></p>
                 <p class="address-text"><%=address.address %><br> <%=address.city %><br> <%=address.state %><br> <%= address.pincode %><br><%=address.landmark %></p>
-                <a href="/editaddress/<%= address._id %>" class="btn btn-outline-primary">Edit</a>
-                <a class="delete-address-btn" data-address-id="<%=address._id%>" onclick="deleteAddress('<%=address._id%>')"><i
-                  class="fa-solid fa-trash"></i></a>
+                <a href="/editaddress/<%= address._id %>" class="btn btn btn-outline-warning me-3"> <i class="far fa-edit"></i> Edit</a>
+                <a class="delete-address-btn"  onclick="deleteAddress('<%=address._id%>')"><i
+                  class="fas fa-trash-alt"></i></a>
               </div>
             <% }) %>
           </div>
@@ -150,20 +148,6 @@
     document.getElementById('addAddressForm').style.display = 'none';
   }
 
-  // function openEditAddressForm() {
-  //   document.getElementById('editAddressForm').style.display = 'block';
-  // }
-
-  // function cancelEditForm(addressId) {
-  //     const editForm = document.getElementById("editForm-" + addressId);
-  //     editForm.style.display = "none";
-  //   }
-
-//   function toggleEditForm(addressId) {
-//   const editForm = document.getElementById("editForm-" + addressId);
-//   editForm.style.display = editForm.style.display === "none" ? "block" : "none";
-//   // editForm.style.display = "block";
-// }
 
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -199,7 +183,7 @@ document.getElementById('addAddress').addEventListener('submit', async (event) =
       const data = await response.json();
       
       if (data.success) {
-      alert(65865)
+      
         Toastify({
                     text: data.message,
                     className: "info",
@@ -234,12 +218,11 @@ async function deleteAddress(addressId) {
                 // Successful response, remove the address from the UI
                 const addressElement = document.querySelector(`[data-address-id='${addressId}']`);
                 if (addressElement) {
-                    const ulElement = addressElement.closest('ul');
-                    if (ulElement) {
-                        ulElement.remove();
-                    } else {
-                        console.error('Error: Unable to find the parent ul element for the deleted address.');
-                    }
+                    // Remove the address element from the DOM
+                    addressElement.remove();
+                    
+                } else {
+                    console.error('Error: Unable to find the deleted address element.');
                 }
             } else {
                 // Handle the case where deletion was not successful

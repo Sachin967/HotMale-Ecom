@@ -36,6 +36,21 @@ const userWare = {
     } else res.redirect("/login");
   },
 
+  userisBlocked :async(req,res,next)=>{
+    res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    res.header("Expires", "-1");
+    res.header("Pragma", "no-cache");
+    if (req.session.loggedIn) {
+      let userData = await User.findOne({ email: req.session.userEmail });
+
+      if (userData && userData.isBlocked === true) {
+        return res.status(403).json({status : 'blocked',message:'You are Blocked'})
+      } else {
+        next();
+      }
+    } else res.redirect("/login");
+  },
+
   cartNotEmptyMiddleware: async (req, res, next) => {
     try {
       const loggedIn = req.session.loggedIn;

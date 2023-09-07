@@ -7,59 +7,57 @@
 
 <body>
   <div class="container mt-4">
-    <% orders.forEach((order, index) => { %>
+   
       <div class="row">
         <!-- Shipping Address Box -->
         <div class="col-md-12 mb-3">
           <div class="border p-3">
             <h5>Shipping Address</h5>
-            <p><strong>Name:</strong> <%= order.userAddress.name %></p>
-            <p><strong>Address:</strong> <%= order.userAddress.address %></p>
-            <p><strong>City:</strong> <%= order.userAddress.city %></p>
-            <p><strong>State:</strong> <%= order.userAddress.state %></p>
-            <p><strong>Zip Code:</strong> <%= order.userAddress.pincode %></p>
+            <p><strong>Name:</strong> <%= orders.userAddress.name %></p>
+            <p><strong>Address:</strong> <%= orders.userAddress.address %></p>
+            <p><strong>City:</strong> <%= orders.userAddress.city %></p>
+            <p><strong>State:</strong> <%= orders.userAddress.state %></p>
+            <p><strong>Zip Code:</strong> <%= orders.userAddress.pincode %></p>
           </div>
         </div>
-  
+      
         <!-- Product Details Box -->
         <div class="col-md-12">
           <table class="table table-bordered">
-            <!-- <thead>
-              <tr>
-                <th>Product Details</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Ordered on</th>
-                <th>Action</th>
-              </tr>
-            </thead> -->
             <tbody>
-              <% order.products.forEach((product, productIndex) => { %>
-                <tr>
-                  <td>
-                    <img src="uploads/products/<%= product.product.img1 %>" alt="Product" width="80" height="80">
-                    <div class="ms-3">
-                      <h6><%= product.product.pname %></h6>
-                    </div>
-                  </td>
-                  <td><%= product.quantity %></td>
-                  <td>₹<%= product.price %></td>
-                  <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
-                  <td>
-                    <% if (order.status !== 'Cancelled') { %>
-                      <button class="btn btn-danger" onclick="cancelProduct('<%= order._id %>')">Cancel</button>
-                    <% } else { %>
-                      <button class="btn-danger" disabled></button>
+              <tr>
+                <td>
+                  <img src="uploads/products/<%= product.product.images[0] %>" alt="Product" width="80" height="80">
+                </td>
+                <td>
+                  <div class="ms-3">
+                    <h6><%= product.product.pname %></h6>
+                  </div>
+                </td>
+                <td><%= product.quantity %></td>
+                <td>₹<%= product.price %></td>
+                <td><%= new Date(orders.createdAt).toLocaleDateString() %></td>
+                <td>
+                  <% if (product.status === 'Cancelled') { %>
+                  <button class="btn btn-danger" disabled>Already cancelled</button>
+                  <% } else if (product.status === 'Delivered') { %>
+                    <button class="btn btn-warning" onclick="returnProduct('<%= orderid %>', '<%= productId %>')">Return</button>
+                  <a href="/download-invoice/<%= orders._id %>/<%= productIndex %>" class="btn btn-primary">Download Invoice</a>
+                  <% } else if (product.status === 'Returned') { %>
+                  <button class="btn btn-success" disabled>Returned</button>
+                  <% } else { %>
+                    <button class="btn btn-danger" onclick="cancelProduct('<%= orderid %>', '<%= productId %>')">Cancel</button>
                     <% } %>
-                  </td>
-                </tr>
-              <% }) %>
+                </td>
+              </tr>
             </tbody>
+            
+            
           </table>
         </div>
         
       </div>
-    <% }) %>
+    
   </div>
   
   
@@ -71,9 +69,10 @@
 
 <script>
   // Function to cancel the order
-  function cancelProduct(orderId) {
+  function cancelProduct(orderId,productId) {
     // Show a SweetAlert confirmation popup
     alert(orderId)
+    alert(productId)
     Swal.fire({
       title: 'Are you sure?',
       text: 'Do you want to cancel this order?',
@@ -87,7 +86,7 @@
       if (result.isConfirmed) {
         // Send an AJAX request to the server to update the order status
         // Replace '/cancel-order' with the actual server route to handle the cancellation
-        fetch(`/cancel-order/${orderId}`, {
+        fetch(`/cancel-order/${orderId}/${productId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -108,6 +107,54 @@
           } else {
             // Show a SweetAlert error message if the cancellation fails
             Swal.fire('Error', 'Failed to cancel the order. Please try again later.', 'error');
+          }
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
+      }
+    });
+  }
+
+
+  function returnProduct(orderId,productId) {
+    // Show a SweetAlert confirmation popup
+    alert(orderId)
+    alert(productId)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to return this order?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, return it!',
+      cancelButtonText: 'No, keep it',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Send an AJAX request to the server to update the order status
+        // Replace '/cancel-order' with the actual server route to handle the cancellation
+        fetch(`/return-order/${orderId}/${productId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          // No need to include orderId in the request body
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+
+            console.log(data);
+            // Show a SweetAlert success message
+            Swal.fire('Order Returned', 'The order has been returned.', 'success')
+              .then(() => {
+                // Reload the page after successful cancellation
+                window.location.href= '/order-details'
+              });
+          } else {
+            // Show a SweetAlert error message if the cancellation fails
+            Swal.fire('Error', 'Failed to return the order. Please try again later.', 'error');
           }
         })
         .catch(error => {

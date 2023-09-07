@@ -34,9 +34,9 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between mt-2">
           <a href="/dashboard" class="text-nowrap logo-img">
-            <img src="../user/assets/images/My project-2.png" style="border-radius: 50%;" width="180" alt="" />
+            <img src="../assets/images/My project-2.png" style="border-radius: 50%;" width="80" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -105,6 +105,32 @@
                 <span class="hide-menu">Orders</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/showcoupons" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item"> 
+              <a class="sidebar-link" href="/getbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Banner</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Add Banner</span>
+              </a>
+            </li>
+            <a href="/adminlogout" class="btn btn-outline-warning ">Logout</a>
           </ul>
           <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">
@@ -205,6 +231,18 @@
                   placeholder="Price in rupees" required>
               </div>
               <div class="form-group">
+                <label for="discountPercentage">Discount Percentage:</label>
+                <input type="number" id="discountPercentage" name="discountPercentage" value="<%=products.offerPercentage %>"><br><br>
+              </div>
+              <div class="form-group">
+                <label for="offerValidFrom">Offer Valid From:</label>
+                <input type="date" id="offerValidFrom" name="offerValidFrom" value="<%= new Date(products.offerValidFrom).toLocaleDateString() %>"><br><br>
+              </div>
+              <div class="form-group">
+                <label for="offerValidUntil">Offer Valid Until:</label>
+                <input type="date" id="offerValidUntil" name="offerValidUntil" value="<%= new Date(products.offerValidUntil).toLocaleDateString() %>"><br><br>
+              </div>
+              <div class="form-group">
                 <label for="exampleTextarea1">Description</label>
                 <textarea class="form-control" name="description" id="exampleTextarea1"
                   rows="4"><%= products.description %></textarea>
@@ -215,34 +253,28 @@
               <!-- File input for multiple images -->
               <div class="mb-3">
                 <label for="formFile1" class="form-label">Select 4 Images</label>
-                <input class="form-control" name="image1" type="file" id="formFile1" accept="image/*" multiple required>
+                <input class="form-control" name="image1" type="file" id="formFile1" accept="image/*" multiple >
               </div>
-              <!-- Image preview container -->
-              <!-- Image preview container -->
-              <div id="imagePreview">
-                <% if (products.img1) { %>
-                  <div class="img-container">
-                    <img class="img-preview img-fluid" src="uploads/products/<%= products.img1 %>">
+
+              <div id="imagePreview" class="row">
+                <% products.images.forEach(image => { %>
+                  <div class="col-md-3 mb-3"> <!-- Adjust the column width as needed -->
+                    <div class="img-container">
+                      <img class="img-preview img-fluid" src="uploads/products/<%= image %>">
+                      
+                    </div>
+                    <label>
+                      <input type="checkbox" name="removedImages" value="<%= image %>"> Remove
+                    </label>
                   </div>
-                  <% } %>
-                    <% if (products.img2) { %>
-                      <div class="img-container">
-                        <img class="img-preview img-fluid" src="uploads/products/<%= products.img2 %>">
-                      </div>
-                      <% } %>
-                        <% if (products.img3) { %>
-                          <div class="img-container">
-                            <img class="img-preview img-fluid" src="uploads/products/<%= products.img3 %>">
-                          </div>
-                          <% } %>
-                            <% if (products.img4) { %>
-                              <div class="img-container">
-                                <img class="img-preview img-fluid" src="uploads/products/<%= products.img4 %>">
-                              </div>
-                              <% } %>
-                          </div>
-
-
+                  
+                <% }); %>
+              </div>
+              
+               
+              <% products.images.forEach(image => { %>
+                <input type="hidden" name="existingImages[]" value="<%= image %>">
+              <% }); %>            
 
               <div class="form-group">
                 <label for="exampleTextarea1">Stock</label>

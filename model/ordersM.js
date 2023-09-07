@@ -18,6 +18,11 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: String,
+    enum: ['Pending', 'Processing', 'Shipped','Delivered','Cancelled','Returned'],
+    default: 'Pending',
+  },
 });
 
 const orderSchema = new mongoose.Schema({
@@ -39,15 +44,14 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: {
-    type: String,
-    enum: ['Pending', 'Processing', 'Shipped', 'Delivered','Cancelled'],
-    default: 'Pending',
-  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  paymentStatus:{
+    type:String,
+    required:false
+  }
 });
 
 const Order = mongoose.model('Order', orderSchema);

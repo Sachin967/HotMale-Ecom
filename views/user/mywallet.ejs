@@ -1,0 +1,142 @@
+<%-include('./includes/header') %>
+<style>
+.wallet-container {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.wallet-balance {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #666;
+  text-align: center;
+}
+
+.order-list {
+  border-top: 10px solid #0d6efd;
+  padding-top: 20px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.order-item-date {
+  font-size: 14px;
+  color: #333;
+}
+
+.debited {
+  color: #d9534f;
+}
+
+.credited {
+  color: #5cb85c;
+}
+
+.order-item-type {
+  font-size: 14px;
+  color: #666;
+}
+.custom-list {
+  padding-left: 0;
+  margin: 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 0px solid #e5e5e5;
+  font-size: 16px;
+  list-style: cjk-ideographic; /* Use the desired custom list style */
+  margin-left: 0;
+  padding-left: 20px; /* Adjust padding for alignment */
+}
+
+</style>
+<div class="row mt-3">
+  <div class="col-lg-4">
+    <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
+      <div class="card-body text-center">
+        <img src="./assets/images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
+          class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
+        <h5 class="my-3">Hello</h5>
+        <p class="text-muted mb-0"><strong>Sachin</strong></p>
+        <div class="d-flex justify-content-center mb-2">
+          <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-0 mx-3  mb-lg-0 border">
+      <div class="card-body p-0 border" style="background-color:#b2b2b2;">
+        <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+            <a href="/order-details">
+              <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
+            </a>
+          </li>
+          
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+            <a href="/wallet">
+                <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
+           </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+            <a href="/getaddress">
+              <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
+            </a>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+            <a href="/my-profile">
+              <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
+            </a>
+          </li>
+       
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="col-lg-7">
+    <div class="wallet-container">
+      <h1 class="wallet-heading">My Wallet</h1>
+      <p class="wallet-balance"><mark>Current Balance: <strong>₹<%= user.totalBalance %></strong></mark></p>
+      <div class="order-list">
+        <ol class="custom-list">
+          <% user.wallet.forEach((transaction) => { %>
+            <li class="order-item">
+              <div class="transaction-date">
+                <%= transaction.timestamp.toLocaleDateString() %>
+              </div>
+              <div class="transaction-amount <%= transaction.type.toLowerCase() %>">
+                <%= transaction.type === 'Debited' ? '-' : '' %>₹<%= transaction.amount %>
+              </div>
+              <div class="transaction-type">
+                <%= transaction.type %>
+              </div>
+            </li>
+          <% }) %>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</div> 
+<%-include('./includes/footer') %>

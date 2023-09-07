@@ -1,81 +1,119 @@
-<div class="mt-5 pt-5">
-    <div class="row justify-content-center mt-5 mb-5">
-      <div class="col-md-6">
-        <div class="card w-75 mx-5">
-          <div class="card-header text-center">
-            <h1 class="font-weight-bold">Login</h1>
-          </div>
-          <div class="card-body">
-            <form class="form-horizontal" method="post" action="/otp-verify">
-              <% if(locals.error){ %>
-              <div class="form-group alert alert-danger w-100 d-flex justify-content-center align-items-center mt-3" style="height: 40px; padding:0;" role="alert">
-                <%= msg %>
-              </div>
-              <% } %>
-              <div class="form-group">
-                <div class="cols-sm-10">
-                  <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="otp" id="otp" placeholder="Enter your otp here" />
-                  </div>
-                  <% if(locals.mobile){ %>
-                  <input type="text" class="form-control d-none" name="mobile" value="<%=mobile %>" id="" placeholder="" />
-                  <% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #E2E7F1, #C9D3E2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(200, 8, 8, 0.1);
+        }
+
+        .card-header {
+            background: linear-gradient(to bottom, #764eaf, #357D96);
+            color: white;
+            border-radius: 10px 10px 0 0;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4E9CAF;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to bottom, #4E9CAF, #357D96);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #357D96;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/otp-verify" method="post" id="otpVerificationForm">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" value="<%=mobile %>" id="mobile" name="mobile">
+                            </div>
+                            <div class="form-group">
+                                <label for="otp">OTP</label>
+                                <input type="text" class="form-control" id="otp" name="otp" required>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Verify OTP</button>
+                                <% if (typeof type !== 'undefined' && type !== null) { %>
+                                    <p><%= msg %></p>
+                                <% } %>
+                                
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Submit</button>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <style>
-    /* Custom styles for the login page */
-  
-    .card {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-  
-    .card-header {
-      background-color: #007bff;
-      color: #fff;
-      padding: 15px;
-    }
-  
-    .card-body {
-      padding: 15px;
-    }
-  
-    .form-group {
-      margin-bottom: 15px;
-    }
-  
-    .input-group-addon {
-      padding: 10px;
-    }
-  
-    .login-button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      outline: none;
-    }
-  
-    .login-button:hover {
-      background-color: #0056b3;
-    }
-  
-    .alert-danger {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-      border-radius: 5px;
-    }
-  </style>
-  
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+    <!-- Add your custom JavaScript for OTP verification -->
+    <script>
+      // JavaScript code to handle OTP verification
+      // Assuming you have a function named "verifyOTP"
+    //   function verifyOTP() {
+    //       // ... (your OTP verification logic)
+
+    //       // If OTP verification is successful and you have the mobile number in the variable "mobile"
+    //       const mobile = document.getElementById("mobile").value; // Replace this with your actual mobile number variable
+
+    //       // Redirect to the "Set Password" page with the mobile number as a URL parameter
+    //       window.location.href = '/setpassword?mobile=' + encodeURIComponent(mobile);
+    //   }
+  </script>
+</body>
+</html>

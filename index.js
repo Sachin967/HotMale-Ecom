@@ -31,7 +31,7 @@ app.set('view engine','ejs')
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // Add this line to parse URL-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 
 

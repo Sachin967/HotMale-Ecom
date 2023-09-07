@@ -33,7 +33,7 @@
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between mt-2">
           <a href="/dashboard" class="text-nowrap logo-img">
             <img src="../user/assets/images/My project-2.png" style="border-radius:50%;" width="180" alt="" />
           </a>
@@ -105,6 +105,32 @@
                 <span class="hide-menu">Orders</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/showcoupons" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Coupons</span>
+              </a>
+            </li>
+            <li class="sidebar-item"> 
+              <a class="sidebar-link" href="/getbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Banner</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Add Banner</span>
+              </a>
+            </li>
+            <a href="/adminlogout" class="btn btn-outline-warning ">Logout</a>
           </ul>
           <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">
@@ -126,7 +152,7 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header">
+      <!-- <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -170,7 +196,7 @@
             </ul>
           </div>
         </nav>
-      </header>
+      </header> -->
       <!--  Header End -->
       <div class="container-fluid">
         <!-- Search Section -->
@@ -182,33 +208,47 @@
           <h4 class="card-title">Category</h4>
       
           <!-- Add New Category -->
-        
-         
-          <div id="search-section" class="my-3">
-            <h3>Search</h3>
-            <form>
-              <div class="form-group">
-                <input type="search" class="form-control" name="search" placeholder="Enter your search query">
-              </div>
-              <button type="submit" class="btn btn-primary mt-2">Search</button>
-            </form>
-            <hr> <!-- Add a horizontal line to separate the sections -->
-          </div>
-          <h3>Add New Category</h3>
-          <form action="/addcategory" method="POST">
+          <form action="/addcategory" method="POST" onsubmit="return validateForm()">
             <div class="form-group mt-1">
-              <label for="categoryName">Category Name:</label>
-              <input type="text" class="form-control" id="categorytitle" name="categorytitle" required>
+                <label for="categoryName">Category Name:</label>
+                <input type="text" class="form-control" id="categoryName" onkeyup="categoryCheck()" name="categorytitle" required>
+                <span id="categorytitle-error" class="error-message"></span>
+            </div>
+            <div class="form-group mt-1">
+                <label for="categoryName">Offer Percentage :</label>
+                <input type="number" class="form-control"  name="offerPercentage" required>
+                <span id="offerPercentage-error" class="error-message"></span>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Add Category</button>
-          </form>
-      
+        </form>    
+         <% if(locals.error){ %>
+          <p class="alert alert-danger p-2">
+            <%= msg %>
+          </p>
+          <% } %>
+          <div id="search-section" class="my-3">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="search" class="form-control" name="search" placeholder="Enter your search query">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          
+         
           <table class="table table-bordered mt-4">
             <thead class="thead-light">
               <tr>
                 <th>Sno</th>
                 <th>Category</th>
+                <th>Offer Percentage</th>
                 <th>Actions</th>
+                <th>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -216,9 +256,17 @@
                 <tr>
                   <td><%=index + 1 %></td>
                   <td><%=category.categorytitle %></td>
+                  <td><%=category.offerPercentage %></td>
                   <td>
                     <a href="/editcategory?id=<%=category.id %>" class="btn btn-outline-warning">Edit</a>
-                    <a href="/deletecategory?id=<%=category.id %>" class="btn btn-danger">Delete</a>
+                    
+                  </td>
+                  <td>
+                    <% if(category.isListed){%>
+                      <a class="btn btn-danger" href="/unlistcategory?id=<%=category.id%>">Unlist</a>
+                      <% }else{ %>
+                        <a class="btn btn-success" href="/listcategory?id=<%=category.id %>">List</a>
+                        <% } %>
                   </td>
                 </tr>
               <% }); %>
@@ -227,9 +275,55 @@
         </div>
       </div>
     </div>
+    <script>
+      
+      function categoryCheck() {
+    const categoryInput = document.getElementById("categoryName");
+    categoryInput.value = categoryInput.value.replace(/\s+/g, "").toUpperCase();
+}
+
+
+    </script>
       <script>
+         function validateForm() {
+        var categoryTitle = document.getElementById("categorytitle").value;
+        var offerPercentage = document.getElementById("offerPercentage").value;
+
+        // Reset previous error messages
+        resetErrorMessages();
+
+        // Category Name validation
+        if (categoryTitle.trim() === "") {
+            showError("categorytitle-error", "Category Name cannot be empty.");
+            return false;
+        }
+
+        // Offer Percentage validation
+        if (isNaN(offerPercentage) || offerPercentage < 0 || offerPercentage > 100) {
+            showError("offerPercentage-error", "Offer Percentage must be a number between 0 and 100.");
+            return false;
+        }
+
+        return true; // Form will be submitted if all checks pass
+    }
+
+    function showError(errorSpanId, errorMessage) {
+        var errorSpan = document.getElementById(errorSpanId);
+        if (errorSpan) {
+            errorSpan.textContent = errorMessage;
+            errorSpan.style.color = "red";
+        }
+    }
+
+    function resetErrorMessages() {
+        // Clear all error messages
+        var errorSpans = document.querySelectorAll(".error-message");
+        errorSpans.forEach(function (errorSpan) {
+            errorSpan.textContent = "";
+        });
+    }
         // Attach the function to the file input change event
-        document.getElementById("formFile1").addEventListener("change", previewImages);
+        // document.getElementById("formFile1").addEventListener("change", previewImages);
       </script>
   <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

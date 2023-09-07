@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="../assets/images/icons/favicon.png" />
+	<link rel="icon" type="image/png" href=".../public/uploads/products/" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -36,9 +36,123 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <!-- Include the SweetAlert library -->
-
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/a8469362d0.js" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css" rel="stylesheet">
 	<!--===============================================================================================-->
+	<style>
+		a{
+			text-decoration: none;
+		}
+	
+    /* Add custom CSS styles here */
+    body {
+      background-color: #F5F5F5;
+      font-family: Arial, sans-serif;
+    }
+
+    .order-container {
+      margin: 50px auto;
+      max-width: 1000px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-table {
+      width: 100%;
+    }
+
+    .order-header {
+      background-color: #717fe0;
+      color: white;
+      font-weight: bold;
+      font-family: 'Montserrat-Bold';
+      font-size: larger;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .order-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10%;
+      margin-right: 15px;
+    }
+
+    .product-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin-right: 10px;
+      max-width: 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-price {
+      color: #357D96;
+      margin-right: 10px;
+    }
+
+    .order-status {
+      font-weight: bold;
+      color: #4E9CAF;
+      margin-right: 10px;
+    }
+
+    .btn-view {
+      padding: 8px 12px;
+      background-color: #717fe0;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-view:hover {
+      background-color: #357D96;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .btn-pagination {
+      margin: 0 5px;
+      padding: 8px 12px;
+      background-color: #717fe0;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-pagination:hover {
+      background-color: #357D96;
+    }
+	</style>
 </head>
 
 <body class="animsition">
@@ -83,36 +197,25 @@
 					</a>
 
 					<!-- Menu desktop -->
-					<div class="menu-desktop">
-						<ul class="main-menu">
-							<li>
-								<a href="/">Home</a>
-
-
-						</ul>
-						</li>
-
-						<li class="active-menu">
-							<a href="/products">Shop</a>
-						</li>
-
-						<!-- <li class="label1" data-label1="hot">
-							<a href="shoping-cart.html">Features</a>
-						</li>
-
-						<li>
-							<a href="blog.html">Blog</a>
-						</li>
-
-						<li>
-							<a href="about.html">About</a>
-						</li> -->
-
-						<!-- <li>
-							<a href="contact.html">Contact</a>
-						</li> -->
-						</ul>
-					</div>
+					<div class="menu-desktop" style="margin-left: 220px;">  
+            <ul class="main-menu">
+              <li>
+                <a href="/products">Shop</a>
+              </li>
+              <li>
+                <a href="/products?page=1&category=TOPWEAR"> Topwear</a>
+              </li>
+              <li>
+                <a href="/products?page=1&category=BOTTOMWEAR">Bottomwear</a>
+              </li> 
+              <li>
+                <a href="/products?page=1&category=SHOES">Shoes</a>
+              </li>
+               <li>
+                <a href="/products?page=1&category=PERFUMES%20AND%20DEOS">Perfumes & Deos</a>
+              </li> 
+            </ul>
+          </div>
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">

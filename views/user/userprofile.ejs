@@ -1,46 +1,59 @@
 <%-include('./includes/header') %>
+<style>
+   .referral-container {
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            width: 250px;
+        }
 
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+           
+            border-radius: 3px;
+            cursor: pointer;
+        }
+</style>
   <div class="row mt-3">
     <div class="col-lg-4">
-      <div class="card mb-4 mx-3 border" style="background-color:#b2b2b2;">
+      <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
         <div class="card-body text-center">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+          <img src="./assets/images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
             class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
           <h5 class="my-3">Hello</h5>
-          <p class="text-muted mb-1"><strong><%=user.name %></strong></p>
-          <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
-          <div class="d-flex justify-content-center mb-2">
-            <!-- <button type="button" class="btn btn-primary">Follow</button> -->
+          <p class="text-muted mb-0"><strong><%=user.name %></strong></p>
+          <div class="d-flex justify-content-center mb-0">
             <a href="/logout" class="btn btn-danger">Logout</a>
           </div>
         </div>
       </div>
-      <div class="card mb-4 mx-3  mb-lg-0 border">
+      <div class="card mb-0 mx-3  mb-lg-0 border">
         <div class="card-body p-0 border" style="background-color:#b2b2b2;">
           <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
               <a href="/order-details">
-                <h4 class="mb-0" style="color:#0d6efd;"><Strong>My Orders</Strong></h4>
+                <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
               </a>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
-              <a href="/my-profile">
-                <p class="mb-0" style="color:#0d6efd;"><strong>Profile Information</strong></p>
-              </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center p-3" style="background-color:#b2b2b2;">
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+              <a href="/wallet">
+                  <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
+             </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
               <a href="/getaddress">
-                <p class="mb-0" style="color:#0d6efd;"><strong>Manage Address</strong></p>
+                <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
               </a>
             </li>
-            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                  <p class="mb-0">@mdbootstrap</p>
-                </li> -->
-            <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li> -->
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
+              <a href="/my-profile">
+                <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
+              </a>
+            </li>
+           
           </ul>
         </div>
       </div>
@@ -59,7 +72,7 @@
                 id="full_name" data-field="name" disabled>
             </div>
           </div>
-          <hr>
+    
           <div class="row">
             <div class="col-sm-3">
               <h6 class="mb-5">Email</h6>
@@ -69,7 +82,7 @@
                 data-field="email" disabled>
             </div>
           </div>
-          <hr>
+      
           <div class="row">
             <div class="col-sm-3">
               <h6 class="mb-5">Mobile</h6>
@@ -79,11 +92,22 @@
                 data-field="mobile" disabled>
             </div>
           </div>
-          <hr>
+      
           <button id="editBtn" class="btn btn-primary">Edit</button>
         </div>
       </div>
-
+    
+        <h3 class="text-center">Invite Friends & Earn</h3>
+        <p class="text-center">Invite Friends & Earn ₹50 Wallet Points For Every Friend</p>
+        <div class="container d-flex justify-content-center align-items-center">
+          <div class="referral-container text-center">
+              <p>Referral Code: <span id="referral-code"><strong><%=user.referralCode%></strong></span>
+              <span id="copy-button-text"><button class="btn btn-default" onclick="copyReferralCode(this)"><i class="fa-regular fa-copy"></i></button></span>
+            </div>
+          </div>
+          <div class="container text-center mt-3">
+            <div id="copy-message" class="text-dark"></div>
+        </div>
     </div>
   </div>
   <%-include('./includes/footer') %>
@@ -166,6 +190,21 @@
           }
         });
       });
+    </script>
+    <script>
+       function copyReferralCode(button) {
+            const referralCode = document.getElementById('referral-code');
+            const textArea = document.createElement('textarea');
+            textArea.value = referralCode.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            const copyMessage = document.getElementById('copy-message');
+        copyMessage.innerText = 'Invite code copied to clipboard';
 
-
+        setTimeout(function () {
+            copyMessage.innerText = '';
+        }, 3000); // 3 seconds
+        }
     </script>

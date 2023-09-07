@@ -1,58 +1,40 @@
 <%-include('./includes/header') %>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Order Details</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://kit.fontawesome.com/a8469362d0.js" crossorigin="anonymous"></script>
-  <style>
-    /* Add custom CSS styles here */
-    .order-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
 
-    .order-table th,
-    .order-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-
-    .product-image {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-    }
-  </style>
-</head>
-<body>
-  <table class="order-table">
-    <thead>
-      <tr>
-        <th>Order ID</th>
-        <th>Image</th>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Order Status</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <% order.forEach((orderItem, index) => { %>
+  <div class="order-container">
+    <div class="order-table">
+      <div class="order-header">
+        My Orders
+      </div>
+      <% orders.forEach((orderItem, index) => { %>
         <% orderItem.products.forEach((product, productIndex) => { %>
-        <tr>
-        <td><%= orderItem._id %></td>
-        <td><img src="uploads/products/<%=product.img1 %>" alt="Product Image" class="product-image"></td>
-        <td><%= product.pname %></td>
-        <td>₹<%= product.price %></td>
-        <td><%= orderItem.status %>
-          <a href="/viewdetails?id=<%=orderItem._id %>" class="btn btn-primary">View</a></td>
-      </tr>
+        <div class="order-row">
+            <img src="/uploads/products/<%=product.product.images[0] %>" alt="Product Image" class="product-image">
+             <div class="product-details">
+            <div class="product-name"><%=product.product.pname %></div>
+            <div class="product-price">₹<%= product.price %></div>
+            <div class="order-status"><%= product.status %></div>
+            <a href="/viewdetails?id=<%= orderItem._id %>&productIndex=<%= productIndex %>" class="btn-view">View Details</a>
+          </div>
+        </div>
+        <% }) %>
       <% }) %>
-      <% }) %>
-    </tbody>
-  </table>
-</body>
-</html>
+    </div>
+  </div>
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="/order-details?page=<%=currentPage - 1 %>" class="btn-pagination">Previous</a>
+    <% } %>
+    
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="/order-details?page=<%=i %>" class="btn-pagination<%= i === currentPage ? ' active' : '' %>"><%= i %></a>
+    <% } %>
+    
+    <% if (currentPage < totalPages) { %>
+      <a href="/order-details?page=<%=currentPage + 1 %>" class="btn-pagination">Next</a>
+    <% } %>
+  </div>
+
+
+
+
 <%-include('./includes/footer') %>

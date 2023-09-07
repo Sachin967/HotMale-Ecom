@@ -21,10 +21,15 @@
             <div class="card mb-0">
               <div class="card-body">
                 <a href="/adminlogin" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="../user/assets/images/My project-2.png" style="border-radius: 50%;" width="180" alt="">
+                  <img src="../assets/images/My project-2.png" style="border-radius: 50%;" width="100" alt="">
                 </a>
-                <p class="text-center">Login</p>
+                <h4 class="text-center">Login</h4>
                 <form action="/adminlogin" method="post">
+                  <% if (locals.error) { %>
+                    <h6 class="alert alert-danger">
+                        <%= msg %>
+                    </h6>
+                <% } %>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -33,7 +38,7 @@
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1">
                   </div>
-                  <div class="d-flex align-items-center justify-content-between mb-4">
+                  <!-- <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
                       <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
                       <label class="form-check-label text-dark" for="flexCheckChecked">
@@ -41,13 +46,14 @@
                       </label>
                     </div>
                     <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
-                  </div>
+                  </div> -->
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
                   
                    
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>

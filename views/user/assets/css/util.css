@@ -3171,7 +3171,8 @@ iframe {border: none;}
 	display: block;
 }
 
-.wrap-pic-w img {width: 100%;}
+.wrap-pic-w img {width: 100%;
+}
 .wrap-pic-max-w img {max-width: 100%;}
 
 .wrap-pic-h img {height: 100%;}
@@ -3314,7 +3315,8 @@ iframe {border: none;}
 
 /*------------------------------------------------------------------
 [ Position ]*/
-.pos-relative {position: relative;}
+.pos-relative {position: relative;
+margin-left: 50px;}
 .pos-absolute {position: absolute;}
 .pos-fixed {position: fixed;}
 

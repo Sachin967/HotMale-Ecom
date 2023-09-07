@@ -1,0 +1,400 @@
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var jQuery_1_7_1 = $.noConflict(true);
+</script> -->
+<!doctype html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modernize Free</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/styles.min.css" />
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between mt-2">
+          <a href="/dashboard" class="text-nowrap logo-img">
+            <img src="../assets/images/My project-2.png" style="border-radius: 50%;" width="80" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/dashboard" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/viewproducts" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/viewcategory" aria-expanded="false">
+                <span>
+                  <i class="ti ti-alert-circle"></i>
+                </span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addproduct" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                <span class="hide-menu">Add Product</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addmin" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Admin++</span>
+              </a>
+            </li>
+              <li class="sidebar-item">
+              <a class="sidebar-link" href="/users" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li> 
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/ordermanage" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/showcoupons" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                <span class="hide-menu">Coupons</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item"> 
+              <a class="sidebar-link" href="/getbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="hide-menu">Banner</span>
+              </a>
+            </li>
+           
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/addbanner" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                <span class="hide-menu">Add Banner</span>
+              </a>
+            </li>
+            <a href="/adminlogout" class="btn btn-outline-warning ">Logout</a>
+          </ul>
+          <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
+            <div class="d-flex">
+              <div class="unlimited-access-title me-3">
+                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
+                <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Buy Pro</a>
+              </div>
+              <div class="unlimited-access-img">
+                <img src="../assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div> -->
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <a href="/adminlogout" target="_blank" class="btn btn-primary">Logout </a>
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">My Account</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">My Task</p>
+                    </a>
+                    <a href="/adminlogout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row d-flex justify-content-center">
+      <div class="col-11 grid-margin stretch-card">
+        <div class="card shadow mt-5">
+          <div class="card-body p-5">
+            <h3 class="card-title">Add Coupon</h3>
+            <p class="card-description">
+              Add a category by providing proper details.
+            </p>
+            <form class="forms-sample" method="post" action="/add-coupon" onsubmit="return validateForm()">
+              <% if(locals.error) { %> 
+                  <div class="alert alert-danger border-0" role="alert">
+                      <%= msg %> 
+                  </div>
+              <% } %> 
+          
+              <div class="form-group">
+                  <label for="couponId">Coupon Code</label>
+                  <input type="text" name="coupon" class="form-control" id="couponId" placeholder="Coupon Code" >
+                  <span id="coupon-error"></span>
+              </div>
+              
+              <div class="form-group">
+                  <label for="startDate">Start Date</label>
+                  <input type="date" name="startDate" class="form-control" id="startDate"  
+                         max="2023-12-31" min="<%= new Date().toISOString().split('T')[0] %>" 
+                         value="<%= new Date().toISOString().split('T')[0] %>">
+                         <span id="startdate-error"></span>
+              </div>
+          
+              <div class="form-group">
+                  <label for="validity">Validity</label>
+                  <input type="date" name="validity" class="form-control" id="validity"  
+                         max="2023-12-31" min="<%= new Date().toISOString().split('T')[0] %>" 
+                         value="">
+                         <span id="validity-error"></span>
+              </div>
+          
+              <div class="form-group">
+                  <label for="percentage">Discount Percentage</label>
+                  <input type="number" name="percentage" id="percentage" min="1" max="100" 
+                         onkeyup="percentageLimit()" class="form-control" placeholder="Discount Percentage" >
+                  <span id="percent-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="minprice">Minimum Price</label>
+                <input type="number" name="min" class="form-control" id="minprice" >
+                <span id="min-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="maxprice">Maximum Price</label>
+              <input type="number" name="max" class="form-control" id="maxprice" >
+              <span id="max-error"></span>
+          </div>
+          
+              <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea name="description" class="form-control" id="description" placeholder="Coupon Description"></textarea>
+                  <span id="description-error"></span>
+              </div>
+          
+              <div class="form-group d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary mr-2">ADD COUPON</button>
+                  <button class="btn btn-light">Cancel</button>
+              </div>
+          </form>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Bootstrap JS CDN (Optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script>
+    function couponName(){
+        let coupon = document.getElementById('couponId').value;
+        document.getElementById('couponId').value = coupon.replaceAll(" ", "").toUpperCase()
+    }
+
+    function percentageLimit(){
+        var percentError = document.getElementById('percent-error');
+        let percent = document.getElementById('percentage').value
+        if(percent<1){
+            percentError.innerHTML = 'Percentage bellow limit';
+			percentError.style.color = 'red'
+        }else if(percent>100){
+            percentError.innerHTML = 'Percentage above limit';
+			percentError.style.color = 'red'
+        }else{
+            percentError.innerHTML = '';
+        }
+
+    }
+  </script>
+
+<script>
+function validateForm() {
+    var couponCode = document.getElementById("couponId").value;
+    var startDate = document.getElementById("startDate").value;
+    var validity = document.getElementById("validity").value;
+    var discountPercentage = document.getElementById("percentage").value;
+    var minPrice = document.getElementById("minprice").value;
+    var maxPrice = document.getElementById("maxprice").value;
+    var description = document.getElementById("description").value;
+
+    console.log("startDate:", startDate); // Add this line for debugging
+
+
+    // Reset previous error messages
+    resetErrorMessages();
+
+    // Coupon Code validation
+    if (couponCode.trim() === "") {
+        showError("coupon-error", "Coupon Code cannot be empty.");
+        return false;
+    }
+
+    // Start Date validation
+    if (!isValidDate(startDate)) {
+        showError("startdate-error", "Invalid Start Date format.");
+        return false;
+    }
+
+    // Validity Date validation
+    if (!isValidDate(validity)) {
+        showError("validity-error", "Invalid Validity Date format.");
+        return false;
+    }
+
+    if (new Date(validity) <= new Date(startDate)) {
+        showError("validity-error", "Validity Date must be after Start Date.");
+        return false;
+    }
+
+    // Discount Percentage validation
+    if (discountPercentage.trim() === "") {
+        showError("percent-error", "Discount Percentage cannot be empty.");
+        return false;
+    }
+
+    if (isNaN(discountPercentage) || discountPercentage < 1 || discountPercentage > 100) {
+        showError("percent-error", "Discount Percentage must be a number between 1 and 100.");
+        return false;
+    }
+
+    // Minimum Price and Maximum Price validation
+    if (minPrice.trim() === "" || maxPrice.trim() === "") {
+        showError("min-error", "Minimum Price and Maximum Price cannot be empty.");
+        return false;
+    }
+
+    if (isNaN(minPrice) || isNaN(maxPrice)) {
+        showError("min-error", "Minimum Price and Maximum Price must be numbers.");
+        return false;
+    }
+
+    if (parseFloat(minPrice) >= parseFloat(maxPrice)) {
+        showError("min-error", "Minimum Price must be less than Maximum Price.");
+        return false;
+    }
+
+    // Description validation (you can add your specific rules here)
+
+    return true; // Form will be submitted if all checks pass
+}
+
+function isValidDate(dateString) {
+    // Check if the date string is in the format YYYY-MM-DD
+    var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(dateString)) {
+        return false;
+    }
+
+    var inputDate = new Date(dateString);
+
+    // Compare the input date to the current date, ignoring the time part
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set time to midnight
+    return inputDate >= currentDate;
+}
+
+function showError(errorSpanId, errorMessage) {
+    var errorSpan = document.getElementById(errorSpanId);
+    if (errorSpan) {
+        errorSpan.textContent = errorMessage;
+        errorSpan.style.color = "red";
+    }
+}
+
+function resetErrorMessages() {
+    // Clear all error messages
+    var errorSpans = document.querySelectorAll(".error-message");
+    errorSpans.forEach(function (errorSpan) {
+        errorSpan.textContent = "";
+    });
+}
+
+</script>

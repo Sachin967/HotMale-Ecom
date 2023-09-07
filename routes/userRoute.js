@@ -8,6 +8,7 @@ require('dotenv').config()
 const Cart = require('../model/cartModel')
 const productControl = require('../controller/productController')
 const profileControl = require('../controller/profileController')
+const ordercartControl = require('../controller/ordercartController')
 const userWare = require('../middlewares/userWare')
 
 user.use(session({
@@ -43,9 +44,8 @@ user.post('/forgetpassword',userWare.forLogin,userController.forgotpass)
 user.post('/forgetpasswordverify',userController.forgotpassVerify)
 user.post('/setnewpassword',userController.setNewPassword)
 
-
-user.get('/products',userWare.reEstablish,userController.viewProducts)
-user.get('/productdetails',userWare.reEstablish,userController.productDetails)
+user.get('/products',userController.viewProducts)
+user.get('/productdetails',userController.productDetails)
 
 user.get('/my-profile',userWare.restrict,profileControl.ProfileGet)
 user.post('/my-profile',userWare.restrict,profileControl.Editprofile)
@@ -56,17 +56,26 @@ user.post('/editaddress/:id',userWare.restrict,profileControl.editAddress)
 user.get('/deleteaddress',userWare.restrict,profileControl.deleteAddress)
 
 
-user.get('/loadcart',userWare.restrict,userController.loadCart)
-user.post('/addtocart',userWare.restrict,userController.addToCart)
-user.put('/changeproductquantity',userWare.restrict,userController.updateQuantity)
-user.delete("/deleteproductcart",userWare.restrict,userController.deleteProduct);
+user.get('/loadcart',userWare.restrict,ordercartControl.loadCart)
+user.post('/addtocart',userWare.userisBlocked,ordercartControl.addToCart)
+user.put('/changeproductquantity',userWare.restrict,ordercartControl.updateQuantity)
+user.delete("/deleteproductcart",userWare.restrict,ordercartControl.deleteProduct);
 
-user.get('/checkout',userWare.restrict,userWare.cartNotEmptyMiddleware,userController.loadCheckout)
-user.post('/checkout',userWare.restrict,userController.processCheckout)
+user.get('/checkout',userWare.restrict,userWare.cartNotEmptyMiddleware,ordercartControl.loadCheckout)
+user.post('/checkout',userWare.restrict,ordercartControl.processCheckout)
 
-user.get('/order-details',userWare.restrict,userController.orderdetails)
-user.post('/cancel-order/:orderId',userWare.restrict,userController.cancelOrder)
-user.get('/viewdetails',userWare.restrict,userController.orderHistory)
-user.post('/add-to-wishlist',userWare.restrict,productControl.addtoWishlist)
+user.get('/order-details',userWare.restrict,ordercartControl.orderdetails)
+user.post('/cancel-order/:orderId/:productId',userWare.restrict,ordercartControl.cancelOrder)
+user.post('/return-order/:orderId/:productId',userWare.restrict,ordercartControl.returnProduct)
+user.get('/viewdetails',userWare.restrict,ordercartControl.orderHistory)
+user.get('/wallet',userWare.restrict,userController.walletGet)
+
+// user.post('/add-to-wishlist',userWare.restrict,productControl.addtoWishlist)
+user.get('/confirmation',userWare.restrict,ordercartControl.orderSuccessView)
+user.post('/verify-payment',userWare.restrict,ordercartControl.verifyPayment)
+
+user.post('/redeem-coupon',userWare.restrict,userController.applyCoupon)
+user.get('/download-invoice/:orderId/:productIndex',userWare.restrict,userController.downloadInvoice)
+
 
 module.exports = user

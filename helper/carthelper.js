@@ -33,13 +33,17 @@ const updateQuantity = async (data) => {
       if (product.stock - quantity < 1 && count == 1) {
         return { status: 'outOfStock' };
       } else {
+        
+        const newTotal = (product.offerPrice > 0 ? product.offerPrice : product.price) * count;
+        console.log(newTotal);
         await Cart.updateOne(
+
           { _id: cartId, "products.product": proId },
           {
             $inc: {
               "products.$.quantity": count,
-              "products.$.total": product.price * count,
-              totalPrice: product.price * count
+              "products.$.total": newTotal,
+              totalPrice: newTotal 
             },
           }
         );
@@ -48,12 +52,15 @@ const updateQuantity = async (data) => {
           { _id: cartId, "products.product": proId },
           { "products.$": 1, totalPrice: 1 }
         );
-
+          
         const newQuantity = cart.products[0].quantity;
-        const newSubTotal = cart.products[0].price;
+        const newSubTotal = cart.products[0].price*cart.products[0].quantity;
         const cartTotal = cart.totalPrice;
-
-        return { status: true, newQuantity: newQuantity, newSubTotal: newSubTotal, cartTotal: cartTotal };
+        const discountAmount = (product.price - product.offerPrice) * newQuantity;
+       
+          
+        return { status: true, newQuantity: newQuantity, newSubTotal: newSubTotal, cartTotal: cartTotal,
+          discountAmount:discountAmount };
       }
     }
   } catch (error) {
@@ -67,23 +74,23 @@ const deleteProduct = async (data) => {
 
   try {
     const product = await Product.findOne({ _id: proId });
-    const cart = await Cart.findOne({ _id: cartId, "cartItems.productId": proId });
+    const cart = await Cart.findOne({ _id: cartId, "products.product": proId });
 
     if (!cart) {
       throw new Error("Cart not found");
     }
 
-    const cartItem = cart.cartItems.find((item) => item.productId.equals(proId));
+    const cartItem = cart.products.find((item) => item.product.equals(proId));
     if (!cartItem) {
       throw new Error("Product not found in the cart");
     }
 
     const quantityToRemove = cartItem.quantity;
     await Cart.updateOne(
-      { _id: cartId, "cartItems.productId": proId },
+      { _id: cartId, "products.product": proId },
       {
-        $inc: { cartTotal: product.price * quantityToRemove * -1 },
-        $pull: { cartItems: { productId: proId } },
+        $inc: { totalPrice: product.price * quantityToRemove * -1 },
+        $pull: { products: { product: proId } },
       }
     );
 
