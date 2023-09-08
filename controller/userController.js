@@ -11,16 +11,16 @@ const Category = require('../model/categorymodel')
 const easyinvoice = require('easyinvoice');
 
 
-const accountSid = "ACa74d7819828621b6024733854ca5c7a6";
-const authToken = "9c66a5efa8ff78be7e805582bf79369b";
-const verifySid = "VA83a3ba969f629a14317f545e245e56a0";
+const accountSid = process.env.TWILIO_AUTH_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const verifySid = process.env.TWILIO_VERIFY_SERVICE_SID;
 const client = require("twilio")(accountSid, authToken);
 
 const loadHome = async (req, res) => {
   try {
     if(req.session.loggedIn){}
     const loggedIn = req.session.loggedIn;
-    // const userName = loggedIn ? req.session.user.name : null;
+   
     const banners = await Banner.find({isActive:true})
     const allCategories = await Category.find();
     const listedCategories = allCategories.filter((category) => category.isListed);
@@ -33,11 +33,9 @@ const loadHome = async (req, res) => {
 
       // Calculate the total count of products in the cart
       if (cart) {
-        cartProductCount = cart.products.reduce(
-          (total, product) => total + product.quantity,
-          0
-        );
+        cartProductCount = cart.products.length;
       }
+      
     }
 
     const products = await Product.find().limit(8);
@@ -360,6 +358,8 @@ const logout = async (req, res) => {
 
 const viewProducts = async (req, res) => {
   try {
+    const loggedIn = req.session.loggedIn;
+    const userId = req.session.userId
     const page = parseInt(req.query.page) || 1;
     const perPage = 8;
     let query = { isListed: true };
@@ -403,9 +403,19 @@ const viewProducts = async (req, res) => {
       sortCriteria = { price: -1 };
     }
 
-  
+  let cartProductCount= 0
+    if (loggedIn) {
+      const userId = req.session.userId;
 
+      // Fetch the cart for the logged-in user
+      const cart = await Cart.findOne({ user: userId });
 
+      // Calculate the total count of products in the cart
+      if (cart) {
+        cartProductCount = cart.products.length;
+      }
+      
+    }
     const totalProducts = await Product.countDocuments(query);
     const totalPages = Math.ceil(totalProducts / perPage);
     const products = await Product.find(query)
@@ -414,20 +424,8 @@ const viewProducts = async (req, res) => {
       .limit(perPage);
 
 
-    const loggedIn = req.session.loggedIn;
-    let cartProductCount = 0;
-    if (loggedIn) {
-      const userId = req.session.userId;
-
-      const cart = await Cart.findOne({ user: userId });
-
-      if (cart) {
-        cartProductCount = cart.products.reduce(
-          (total, product) => total + product.quantity,
-          0
-        );
-      }
-    }
+ 
+    
     res.render("product", {
       products: products,
       currentPage: page,
@@ -436,8 +434,8 @@ const viewProducts = async (req, res) => {
       loggedIn,
       cartProductCount,
       sortBy,
-      category:listedCategories
-      
+      category:listedCategories,
+      cartProductCount
     });
   } catch (error) {
     console.log(error.message);
@@ -447,8 +445,14 @@ const viewProducts = async (req, res) => {
 
 const productDetails = async (req, res) => {
   try {
+    const loggedIn = req.session.loggedIn
     const productId = req.query.id;
     const product = await Product.findOne({ _id: productId });
+
+    const relatedProducts = await Product.find({
+      category: product.category,
+      _id: { $ne: productId } 
+    });
 
     const userId = req.session.userId;
 
@@ -461,8 +465,23 @@ const productDetails = async (req, res) => {
         return cartProduct.product.toString() === productId;
       });
     }
+    let cartProductCount = 0
+    if (loggedIn) {
+      const userId = req.session.userId;
 
-    res.render("productdetails", { product: product, userId: userId, productInCart: productInCart });
+      // Fetch the cart for the logged-in user
+      const cart = await Cart.findOne({ user: userId });
+
+      // Calculate the total count of products in the cart
+      if (cart) {
+        cartProductCount = cart.products.length;
+      }
+      
+    }
+
+    res.render("productdetails", { product: product, 
+      userId: userId, productInCart: productInCart,
+      relatedProducts,loggedIn ,cartProductCount});
   } catch (error) {
     console.log("Error:", error.message);
   }
@@ -527,11 +546,25 @@ const applyCoupon = async(req,res)=>{
 
 const walletGet = async(req,res)=>{
   try {
+    const loggedIn = req.session.loggedIn
     const userId = req.session.userId
     const user = await User.findById(userId)
     await user.save()
+
+    if (loggedIn) {
+      const userId = req.session.userId;
+
+      // Fetch the cart for the logged-in user
+      const cart = await Cart.findOne({ user: userId });
+
+      // Calculate the total count of products in the cart
+      if (cart) {
+        cartProductCount = cart.products.length;
+      }
+      
+    }
     
-    res.render('mywallet',{user})
+    res.render('mywallet',{user,loggedIn,cartProductCount})
 
   } catch (error) {
     console.log(error.message);

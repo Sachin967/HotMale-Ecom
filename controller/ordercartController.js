@@ -88,7 +88,7 @@ const ordercartController = {
               products: [productObj],
               totalPrice: productObj.price,
             });
-            console.log(productObj);
+            
           }
           const updatedCart = await Cart.findOne({ user: userId });
           return { status: true };
@@ -107,6 +107,7 @@ const ordercartController = {
 
   loadCart: async (req, res) => {
     try {
+      const loggedIn = req.session.loggedIn
       const userId = req.session.userId;
 
       const cart = await Cart.aggregate([
@@ -135,7 +136,19 @@ const ordercartController = {
           },
         },
       ]);
-     
+      let cartProductCount = 0
+      if (loggedIn) {
+        const userId = req.session.userId;
+  
+        // Fetch the cart for the logged-in user
+        const cart = await Cart.findOne({ user: userId });
+  
+        // Calculate the total count of products in the cart
+        if (cart) {
+          cartProductCount = cart.products.length;
+        }
+        
+      }
       
       let count = 0;
       let cartTotal = 0;
@@ -154,7 +167,7 @@ const ordercartController = {
       // const discountAmount = cart[0].carted.price * cart[0].quantity - cartTotal;
 
      
-      res.render("cart", { cart, userId, count, cartTotal });
+      res.render("cart", { cart, userId, count, cartTotal ,loggedIn, cartProductCount });
     } catch (error) {
       console.log(error.message);
       res.send({ success: false, error: error.message });
@@ -189,6 +202,7 @@ const ordercartController = {
 
   loadCheckout: async (req, res) => {
     try {
+      const loggedIn = req.session.loggedIn
       const userId = req.session.userId;
       const user = await User.findById(userId);
       const addresses = await Address.find({ userId: user._id });
@@ -234,12 +248,28 @@ const ordercartController = {
         usedBy: { $not: { $in: [userId] } },
       });
 
+      let cartProductCount = 0
+      if (loggedIn) {
+        const userId = req.session.userId;
+  
+        // Fetch the cart for the logged-in user
+        const cart = await Cart.findOne({ user: userId });
+  
+        // Calculate the total count of products in the cart
+        if (cart) {
+          cartProductCount = cart.products.length;
+        }
+        
+      }
+
       res.render("checkout", {
         user,
         cartItems,
         addresses,
         totalPrice,
         availableCoupons,
+        loggedIn,
+        cartProductCount
       });
     } catch (error) {
       console.log(error.message);
@@ -382,9 +412,32 @@ const ordercartController = {
     }
   },
 
+   paymentFailed : async (req, res) => {
+    try {
+      const order = req.body;
+  
+      
+      const orderIdToRemove = order.order.receipt;
+  
+      
+      const removedOrder = await Order.findByIdAndRemove(orderIdToRemove);
+  
+      if (removedOrder) {
+        console.log('Order removed:', removedOrder);
+        res.send({ status: true });
+      } else {
+        console.log('Order not found');
+        res.status(404).send({ status: false });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send({ status: false });
+    }
+  },
+
   orderdetails: async (req, res) => {
     const { session, query } = req;
-  
+    const loggedIn = req.session.loggedIn
     const userId = session.userId;
     const page = parseInt(query.page) || 1; // Set the default page to 1
     const perPage = 2; // Adjust this number as needed
@@ -401,11 +454,24 @@ const ordercartController = {
         .sort({ createdAt: -1 })
         .skip((page - 1) * perPage)
         .limit(perPage);
+
+        let cartProductCount = 0
+      if (loggedIn) {
+        const userId = req.session.userId;
+        const cart = await Cart.findOne({ user: userId });
+  
+        if (cart) {
+          cartProductCount = cart.products.length;
+        }
+        
+      }
   
       res.render("orderdetails", {
         orders,
         currentPage: page,
         totalPages,
+        loggedIn,
+        cartProductCount
       });
     } catch (error) {
       console.log(error.message);
@@ -416,6 +482,7 @@ const ordercartController = {
 
   orderHistory: async (req, res) => {
     try {
+      const loggedIn = req.session.loggedIn
       const orderId = req.query.id;
       const productIndex = parseInt(req.query.productIndex);
       const order = await Order.findById(orderId)
@@ -429,7 +496,19 @@ const ordercartController = {
         const selectedProduct = order.products[productIndex];
         const orderid = order._id.toString();
         const productId = selectedProduct.product._id.toString()
-        res.render("order-history", { orders: order, product: selectedProduct,productIndex,orderid,productId });
+
+        let cartProductCount = 0
+        if (loggedIn) {
+          const userId = req.session.userId;
+          const cart = await Cart.findOne({ user: userId });
+    
+          if (cart) {
+            cartProductCount = cart.products.length;
+          }
+          
+        }
+        res.render("order-history", { orders: order, product: selectedProduct,productIndex,orderid,productId 
+                                      ,loggedIn, cartProductCount});
       } catch (error) {
       console.log(error.message);
     }
@@ -437,16 +516,48 @@ const ordercartController = {
 
   cancelOrder: async (req, res) => {
     try {
-      // const newStatus = req.body.status
       const orderId = req.params.orderId;
       const productId = req.params.productId;
-      console.log(productId);
-
+  
       const order = await Order.findById(orderId);
-
+  
       if (!order) {
         return res.status(404).json({ error: "Order not found." });
       }
+  
+      // Check if the payment method is Razorpay
+      if (order.paymentMethod === 'razorpay') {
+        const productToCancel = order.products.find(
+          (product) => product.product.toString() === productId
+        );
+  
+        if (!productToCancel) {
+          return res.status(404).json({ error: "Product not found in the order" });
+        }
+  
+        // Calculate the amount to refund (assuming product price is stored in productToCancel.price)
+        const refundAmount = productToCancel.price * productToCancel.quantity;
+  
+        // Update the user's wallet balance by crediting the refundAmount
+        const user = await User.findById(order.user);
+  
+        if (!user) {
+          return res.status(404).json({ error: "User not found." });
+        }
+  
+        // Credit the refundAmount to the user's wallet
+        const creditTransaction = {
+          amount: refundAmount,
+          type: 'Credited', // Use 'Credited' to indicate money added to the wallet
+        };
+  
+        // Add the credit transaction to the user's wallet
+        user.wallet.push(creditTransaction);
+  
+        // Calculate the new total balance using the pre-save hook
+        await user.save();
+      }
+  
       // Increase stock for each product in the canceled order
       for (const orderProduct of order.products) {
         const product = await Product.findById(productId);
@@ -455,28 +566,26 @@ const ordercartController = {
           console.error(`Product with ID ${orderProduct.product} not found.`);
           continue; // Skip to the next product
         }
-
+  
         product.stock += orderProduct.quantity;
         await product.save();
       }
-
+  
       const productToCancel = order.products.find(
         (product) => product.product.toString() === productId
       );
       if (!productToCancel) {
-        return res
-          .status(404)
-          .json({ error: "Product not found in the order" });
+        return res.status(404).json({ error: "Product not found in the order" });
       }
       productToCancel.status = "Cancelled";
       await order.save();
-
+  
       res.json({ success: true, message: "Product successfully canceled!" });
     } catch (error) {
       console.log(error.message);
     }
   },
-
+  
   verifyPayment: async (req, res) => {
     try {
       const { payment, order } = req.body;
@@ -505,7 +614,18 @@ const ordercartController = {
   },
 
   orderSuccessView: async (req, res) => {
-    res.render("confirmation");
+    const loggedIn = req.session.loggedIn
+    let cartProductCount = 0
+    if (loggedIn) {
+      const userId = req.session.userId;
+      const cart = await Cart.findOne({ user: userId });
+
+      if (cart) {
+        cartProductCount = cart.products.length;
+      }
+      
+    }
+    res.render("confirmation",{loggedIn,cartProductCount});
   },
 
   returnProduct: async (req, res) => {

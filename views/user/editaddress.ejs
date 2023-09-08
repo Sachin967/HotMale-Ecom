@@ -4,7 +4,7 @@
 <div class="col-lg-4">
   <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
     <div class="card-body text-center">
-      <img src="./assets//images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
+      <img src="./assets/images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
         class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
       <h5 class="my-3" style="color: aliceblue;">Hello</h5>
       <p class="text-muted mb-0"><%= %></p>
@@ -50,30 +50,31 @@
     </div>
     <div class="card-body">
       <!-- Your form to edit an address goes here -->
-      <form  method="post" id="editAddressForm">
+      <form method="post" id="editAddressForm" onsubmit="return validateForm();">
+
         <div class="form-row">
           
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" value="<%= address.name %>"  required>
+            <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" value="<%= address.name %>" required maxlength="15">
           </div>
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile" value="<%= address.mobile%>" required>
+            <input type="text" class="form-control" name="mobile" id="mobileInput" placeholder="Mobile" value="<%= address.mobile%>" required maxlength="10">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="pincode" id="pincodeInput" placeholder="Pincode" value="<%= address.pincode %>" required>
+            <input type="text" class="form-control" name="pincode" id="pincodeInput" placeholder="Pincode" value="<%= address.pincode %>" required maxlength="6">
           </div>
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="city" id="cityInput" placeholder="City" value="<%= address.city %>" required>
+            <input type="text" class="form-control" name="city" id="cityInput" placeholder="City" value="<%= address.city %>" required maxlength="15">
           </div>
         </div>
         <div class="form-group">
-          <textarea class="form-control" id="addressInput" name="address" placeholder="Full Address" rows="5"  required><%=address.address %></textarea>
+          <textarea class="form-control" id="addressInput" name="address" placeholder="Full Address" rows="5" required maxlength="50"><%=address.address %></textarea>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" name="district" id="districtInput" placeholder="District" value="<%= address.district %>" required>
+            <input type="text" class="form-control" name="district" id="districtInput" placeholder="District" value="<%= address.district %>" required maxlength="15">
           </div>
           <div class="form-group col-md-6">
             <select class="form-control" name="state" id="stateInput" required>
@@ -85,7 +86,7 @@
           </div>  
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" name="landmark" id="landmarkInput" placeholder="Landmark" value="<%= address.landmark %>" required>
+          <input type="text" class="form-control" name="landmark" id="landmarkInput" placeholder="Landmark" value="<%= address.landmark %>" required maxlength="20">
         </div>
         <div class="d-flex justify-content-end">
           <button type="button" class="btn btn-secondary mr-2" onclick="cancelEditAddress()">Cancel</button>
@@ -102,6 +103,74 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Your JavaScript code here, including the validateForm() function
+});
+
+  function validateForm() {
+    var mobileInput = document.getElementById("mobileInput").value;
+    console.log("Validating mobileInput: " + mobileInput);
+    
+    var mobilePattern = /^\d{10}$/;
+    if (!mobilePattern.test(mobileInput)) {
+        showToastError("Please enter a valid mobile number.");
+        return false;
+    }
+
+// Example: Pincode validation
+var pincodeInput = document.getElementById("pincodeInput").value;
+var pincodePattern = /^\d{6}$/; // Assuming a 6-digit pincode
+if (!pincodePattern.test(pincodeInput)) {
+  showToastError("Please enter a valid 6-digit pincode.");
+  return false;
+}
+
+var nameInput = document.getElementById("fullNameInput").value;
+    if (nameInput.length > 15) {
+      showToastError("Name should not exceed 20 characters.");
+      return false;
+    }
+    var districtInput = document.getElementById("districtInput").value;
+    if (districtInput.length > 15) {
+      showToastError("District name should not exceed 15 characters.");
+      return false;
+    }
+    var cityInput = document.getElementById("cityInput").value;
+    if (cityInput.length > 15) {
+      showToastError("City name should not exceed 15 characters.");
+      return false;
+    }
+
+    var landmarkInput = document.getElementById("landmarkInput").value;
+    if (landmarkInput.length > 15) {
+      showToastError("Landmark name should not exceed 15 characters.");
+      return false;
+    }
+
+    // Example: Address validation
+    var addressInput = document.getElementById("addressInput").value;
+    if (addressInput.length > 50) {
+      return false;
+        showToastError("Address should not exceed 50 characters.");
+    }
+
+    // Add similar validation logic for other fields as needed
+    // You can also check input limits using the 'maxlength' attribute
+   console.log('form is valid');
+    return true; // Form is valid
+}
+
+function showToastError(message) {
+    Toastify({
+        text: message,
+        duration: 5000, // Duration in milliseconds
+        gravity: "top", // Position of the toast
+        backgroundColor: "red",
+    }).showToast();
+}
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
   const editAddressForm = document.getElementById('editAddressForm');

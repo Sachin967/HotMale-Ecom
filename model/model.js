@@ -87,13 +87,13 @@ UserSchema.pre('save', async function(next) {
       return total;
     }, 0);
 
-    console.log('Total balance calculated:', totalBalance);
+    
 
     this.totalBalance = totalBalance;
 
     next();
   } catch (error) {
-    console.error('Error in pre-save hook:', error);
+    console.error('Error in pre-save hook:', error.message);
     next(error);
   }
 });

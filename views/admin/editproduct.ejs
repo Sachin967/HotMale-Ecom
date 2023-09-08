@@ -210,7 +210,7 @@
               <div class="form-group">
                 <label for="exampleInputName1">Product Name</label>
                 <input type="text" name="pname" class="form-control" value="<%=products.pname%>" id="exampleInputName1"
-                  placeholder="Product Title" required>
+                  placeholder="Product Title" maxlength="15" required>
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail3">Category</label>
@@ -228,11 +228,11 @@
               <div class="form-group">
                 <label for="exampleInputPassword4">Price</label>
                 <input type="number" name="price" class="form-control" value="<%=products.price %>"
-                  placeholder="Price in rupees" required>
+                  placeholder="Price in rupees" min="" max="" required>
               </div>
               <div class="form-group">
                 <label for="discountPercentage">Discount Percentage:</label>
-                <input type="number" id="discountPercentage" name="discountPercentage" value="<%=products.offerPercentage %>"><br><br>
+                <input type="number" id="discountPercentage" name="discountPercentage" value="<%=products.offerPercentage %>" max="100"><br><br>
               </div>
               <div class="form-group">
                 <label for="offerValidFrom">Offer Valid From:</label>
@@ -244,7 +244,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleTextarea1">Description</label>
-                <textarea class="form-control" name="description" id="exampleTextarea1"
+                <textarea class="form-control" name="description" id="exampleTextarea1" maxlength="50"
                   rows="4"><%= products.description %></textarea>
 
               </div>

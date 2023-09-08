@@ -1,242 +1,407 @@
 <%-include('./includes/header') %>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<div class="row mt-3">
-<div class="col-lg-4">
-  <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
-    <div class="card-body text-center">
-      <img src="./assets//images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
-        class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
-      <h5 class="my-3" style="color: aliceblue;">Hello</h5>
-      <p class="text-muted mb-0"><%= %></p>
-      <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
-      <div class="d-flex justify-content-center mb-0">
-    
-        <a href="/logout" class="btn btn-danger">Logout</a>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <div class="wrap-header-cart js-panel-cart">
+    <div class="s-full js-hide-cart"></div>
+
+    <div class="header-cart flex-col-l p-l-65 p-r-25">
+      <div class="header-cart-title flex-w flex-sb-m p-b-8">
+        <span class="mtext-103 cl2">
+          Your Cart
+        </span>
+
+        <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+          <i class="zmdi zmdi-close"></i>
+        </div>
+      </div>
+
+      <div class="header-cart-content flex-w js-pscroll">
+
+
+        <div class="w-full">
+
+          <div class="header-cart-buttons flex-w w-full">
+            <a href="/loadcart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+              View Cart
+            </a>
+
+            <a href="/checkout" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+              Check Out
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="card mb-0 mx-3  mb-lg-0 border">
-    <div class="card-body p-0 border" style="background-color:#b2b2b2;">
-      <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
-        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
-          <a href="/order-details">
-            <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
-          </a>
-        </li>
-        
-        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
-          <a href="/wallet">
-              <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
-         </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
-          <a href="/getaddress">
-            <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
-          </a>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color:#b2b2b2;">
-          <a href="/my-profile">
-            <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
-          </a>
-        </li>
-       
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="col-lg-8" id="manageAddress">
-  <div class="container mt-0">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Manage Address</h5>
+  <div class="row mt-3">
+    <div class="col-lg-4">
+      <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
+        <div class="card-body text-center">
+          <img src="./assets//images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg"
+            alt="avatar" class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
+          <h5 class="my-1" style="color: aliceblue;">Hello</h5>
+          <p class="text-muted mb-3"><strong>
+              <%=user.name %>
+            </strong></p>
+          <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
+          <div class="d-flex justify-content-center mb-0">
+
+            <a href="/logout" class="btn btn-danger">Logout</a>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-       
-        
-        <% if (addresses && addresses.length > 0) { %>
-          <div class="address-list">
-            <% addresses.forEach(function (address) { %>
-              <div class="address-item" data-address-id="<%=address._id%>">
-                <p class="name-mobile"><%=address.name %>&nbsp;<%=address.mobile %></p>
-                <p class="address-text"><%=address.address %><br> <%=address.city %><br> <%=address.state %><br> <%= address.pincode %><br><%=address.landmark %></p>
-                <a href="/editaddress/<%= address._id %>" class="btn btn btn-outline-warning me-3"> <i class="far fa-edit"></i> Edit</a>
-                <a class="delete-address-btn"  onclick="deleteAddress('<%=address._id%>')"><i
-                  class="fas fa-trash-alt"></i></a>
+      <div class="card mb-0 mx-3  mb-lg-0 border">
+        <div class="card-body p-0 border" style="background-color:#b2b2b2;">
+          <ul class="list-group list-group-flush rounded-3 d-flex flex-column align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+              style="background-color:#b2b2b2;">
+              <a href="/order-details">
+                <h5 class="mb-3" style="color:#0d6efd;"><Strong> Orders</Strong></h5>
+              </a>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+              style="background-color:#b2b2b2;">
+              <a href="/wallet">
+                <h5 class="mb-3" style="color:#0d6efd;"><strong>My Wallet</strong></h5>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+              style="background-color:#b2b2b2;">
+              <a href="/getaddress">
+                <h5 class="mb-3" style="color:#0d6efd;"><strong>Manage Address</strong></h5>
+              </a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+              style="background-color:#b2b2b2;">
+              <a href="/my-profile">
+                <h5 class="mb-3" style="color: #0d6efd;"><strong>Profile Information</strong></h5>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8" id="manageAddress">
+      <div class="container mt-0">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Manage Address</h5>
+          </div>
+          <div class="card-body">
+
+
+            <% if (addresses && addresses.length> 0) { %>
+              <div class="address-list">
+                <% addresses.forEach(function (address) { %>
+                  <div class="address-item" data-address-id="<%=address._id%>">
+                    <p class="name-mobile">
+                      <%=address.name %>&nbsp;<%=address.mobile %>
+                    </p>
+                    <p class="address-text">
+                      <%=address.address %><br>
+                        <%=address.city %><br>
+                          <%=address.state %><br>
+                            <%= address.pincode %><br>
+                              <%=address.landmark %>
+                    </p>
+                    <a href="/editaddress/<%= address._id %>" class="btn btn btn-outline-warning me-3"> <i
+                        class="far fa-edit"></i> Edit</a>
+                    <a class="delete-address-btn" onclick="deleteAddress('<%=address._id%>')"><i
+                        class="fas fa-trash-alt"></i></a>
+                  </div>
+                  <% }) %>
               </div>
-            <% }) %>
-          </div>
-        <% } else { %>
-          <p>No addresses found.</p>
-        <% } %>
+              <% } else { %>
+                <p>No addresses found.</p>
+                <% } %>
 
-         </div>
-    </div>
-    <div class="my-3">
-      <button type="button" class="btn btn-outline-primary" onclick="openAddAddressForm()">
-        Add New Address
-      </button>
+          </div>
+        </div>
+        <div class="my-3">
+          <button type="button" class="btn btn-outline-primary" onclick="openAddAddressForm()">
+            Add New Address
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Address Form -->
+      <div class="container mt-4" style="display: none;" id="addAddressForm">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Add New Address</h5>
+          </div>
+          <div class="card-body">
+            <!-- Your form to add a new address goes here -->
+            <form method="post" id="addAddress" onsubmit="return validateForm()">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" maxlength="15"
+                    required>
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="mobileInput" name="mobile" placeholder="Mobile" required maxlength="15">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="pincodeInput" name="pincode" placeholder="Pincode" maxlength="6"
+                    required>
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="cityInput" name="city" placeholder="City" required maxlength="15">
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" id="addressInput" placeholder="Full Address" type="text" name="address" maxlength="50"
+                  rows="5" required></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control" id="districtInput" name="district" placeholder="District" maxlength="15"
+                    required>
+                </div>
+                <div class="form-group col-md-6">
+                  <select class="form-control" id="stateInput" name="state" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="state1">Kerala</option>
+                    <option value="state2">Goa</option>
+                    <!-- Add more options as needed -->
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="landmarkInput" name="landmark" placeholder="Landmark" maxlength="20"
+                  required>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary mr-2" onclick="cancelAddAddress()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Address</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Address Form -->
+
     </div>
   </div>
-
-  <!-- Add Address Form -->
-  <div class="container mt-4" style="display: none;" id="addAddressForm">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Add New Address</h5>
-      </div>
-      <div class="card-body">
-        <!-- Your form to add a new address goes here -->
-        <form method="post" id="addAddress">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control" name="name" id="fullNameInput" placeholder="Full Name" required>
-            </div>
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="mobileInput" name="mobile" placeholder="Mobile" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="pincodeInput" name="pincode" placeholder="Pincode" required>
-            </div>
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="cityInput" name="city" placeholder="City" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" id="addressInput" placeholder="Full Address" type="text" name="address" rows="5" required></textarea>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="districtInput" name="district" placeholder="District" required>
-            </div>
-            <div class="form-group col-md-6">
-              <select class="form-control" id="stateInput" name="state" required>
-                <option value="" disabled selected>Select State</option>
-                <option value="state1">Kerala</option>
-                <option value="state2">Goa</option>
-                <!-- Add more options as needed -->
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" id="landmarkInput" name="landmark" placeholder="Landmark" required>
-          </div>
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary mr-2" onclick="cancelAddAddress()">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save Address</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Address Form -->
- 
-</div>
-</div>
-<!-- Add Bootstrap and Font Awesome JS links here -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
-<script>
-  function openAddAddressForm() {
-    document.getElementById('addAddressForm').style.display = 'block';
-  }
-
-  function cancelAddAddress() {
-    document.getElementById('addAddressForm').style.display = 'none';
-  }
-
-
-</script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script>
-
-  // add address
-  document.addEventListener('DOMContentLoaded', () => {
-  const addAddressSection = document.getElementById('addAddressForm');
-  const manageAddressPage = document.getElementById('manageAddress');
-
-
-document.getElementById('addAddress').addEventListener('submit', async (event) => {
-  event.preventDefault()
-  try {
-    const formData = {
-      name: document.getElementById('addAddress').elements['name'].value,
-      mobile: document.getElementById('addAddress').elements['mobile'].value,
-      pincode: document.getElementById('addAddress').elements['pincode'].value,
-      address: document.getElementById('addAddress').elements['address'].value,
-      city: document.getElementById('addAddress').elements['city'].value,
-      state: document.getElementById('addAddress').elements['state'].value,
-      landmark: document.getElementById('addAddress').elements['landmark'].value,
-      district: document.getElementById('addAddress').elements['district'].value,
-    };
-        
-      const response = await fetch('/postaddress', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      
-      if (data.success) {
-      
-        Toastify({
-                    text: data.message,
-                    className: "info",
-                    style: {
-                        background: "linear-gradient(to right, #0b7303, #24c9a3)",
-                    }
-                    }).showToast();
-       window.location.href='/getaddress'
-      } else {
-        // Failed to add address, show an error message to the user (optional)
-        alert(data.message);
-      }
-
-      
-    } catch (error) {
-      console.log(error.message);
+  <!-- Add Bootstrap and Font Awesome JS links here -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+  <script>
+    function openAddAddressForm() {
+      document.getElementById('addAddressForm').style.display = 'block';
     }
-  });
-});
 
-</script>
-<script>
+    function cancelAddAddress() {
+      document.getElementById('addAddressForm').style.display = 'none';
+    }
 
-async function deleteAddress(addressId) {
-    if (confirm("Are you sure you want to delete this address?")) {
-        try {
-            const response = await fetch(`/deleteaddress?addressId=${addressId}`, {
-                method: 'GET',
-            });
 
-            if (response.ok) {
-                // Successful response, remove the address from the UI
-                const addressElement = document.querySelector(`[data-address-id='${addressId}']`);
-                if (addressElement) {
-                    // Remove the address element from the DOM
-                    addressElement.remove();
-                    
-                } else {
-                    console.error('Error: Unable to find the deleted address element.');
-                }
-            } else {
-                // Handle the case where deletion was not successful
-                alert('Failed to delete the address. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error deleting address:', error);
-            alert('An error occurred while trying to delete the address. Please try again.');
+  </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script>
+      function validateForm() {
+        var mobileInput = document.getElementById("mobileInput").value;
+    var mobilePattern = /^\d{10}$/; // Assuming a 10-digit mobile number
+    if (!mobilePattern.test(mobileInput)) {
+        showToastError("Please enter a valid mobile number.");
+        return false;
+    }
+
+    // Example: Pincode validation
+    var pincodeInput = document.getElementById("pincodeInput").value;
+    var pincodePattern = /^\d{6}$/; // Assuming a 6-digit pincode
+    if (!pincodePattern.test(pincodeInput)) {
+        showToastError("Please enter a valid 6-digit pincode.");
+        return false;
+    }
+
+    var nameInput = document.getElementById("name").value;
+        if (nameInput.length > 15) {
+            showToastError("Name should not exceed 20 characters.");
+            return false;
         }
+        var districtInput = document.getElementById("districtInput").value;
+        if (districtInput.length > 15) {
+            showToastError("District name should not exceed 15 characters.");
+            return false;
+        }
+        var cityInput = document.getElementById("cityInput").value;
+        if (cityInput.length > 15) {
+            showToastError("City name should not exceed 15 characters.");
+            return false;
+        }
+
+        var landmarkInput = document.getElementById("landmarkInput").value;
+        if (landmarkInput.length > 15) {
+            showToastError("Landmark name should not exceed 15 characters.");
+            return false;
+        }
+
+        // Example: Address validation
+        var addressInput = document.getElementById("addressInput").value;
+        if (addressInput.length > 50) {
+            showToastError("Address should not exceed 50 characters.");
+            return false;
+        }
+
+        // Add similar validation logic for other fields as needed
+        // You can also check input limits using the 'maxlength' attribute
+
+        return true; // Form is valid
     }
+
+    function showToastError(message) {
+        Toastify({
+            text: message,
+            duration: 5000, // Duration in milliseconds
+            gravity: "top", // Position of the toast
+            backgroundColor: "red",
+        }).showToast();
+    }
+  </script>
+  <script>
+
+    // add address
+    document.addEventListener('DOMContentLoaded', () => {
+      const addAddressSection = document.getElementById('addAddressForm');
+      const manageAddressPage = document.getElementById('manageAddress');
+
+
+      document.getElementById('addAddress').addEventListener('submit', async (event) => {
+        event.preventDefault()
+        try {
+          const formData = {
+            name: document.getElementById('addAddress').elements['name'].value,
+            mobile: document.getElementById('addAddress').elements['mobile'].value,
+            pincode: document.getElementById('addAddress').elements['pincode'].value,
+            address: document.getElementById('addAddress').elements['address'].value,
+            city: document.getElementById('addAddress').elements['city'].value,
+            state: document.getElementById('addAddress').elements['state'].value,
+            landmark: document.getElementById('addAddress').elements['landmark'].value,
+            district: document.getElementById('addAddress').elements['district'].value,
+          };
+
+          const response = await fetch('/postaddress', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+          const data = await response.json();
+
+          if (data.success) {
+            // Set a flag in localStorage to indicate that a notification should be shown
+            localStorage.setItem('showNotification', 'true');
+
+            // Reload the page immediately
+            window.location.reload();
+          }
+
+            
+          else {
+            // Failed to add address, show an error message to the user (optional)
+            alert(data.message);
+          }
+
+
+        } catch (error) {
+          console.log(error.message);
+        }
+      });
+      if (localStorage.getItem('showNotification') === 'true') {
+   
+      Toastify({
+        text: "Address added successfully!",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #0b7303, #24c9a3)",
+        }
+      }).showToast();
+
+      // Clear the flag in localStorage
+      localStorage.removeItem('showNotification');
+   
+  }
+    });
+
+
+
+  </script>
+  <script>
+
+   async function deleteAddress(addressId) {
+  const confirmToast = Toastify({
+    text: "Are you sure you want to delete this address?",
+    duration: -1, // Set duration to -1 to make it persistent until user interacts with it
+    gravity: "top", // Position the toast at the top
+    position: "center", // Position the toast in the center
+    close: true, // Allow the user to close the confirmation toast
+    onClick: function () {
+      // When the user clicks the confirmation toast, proceed with deletion
+      confirmDeletion(addressId);
+      confirmToast.hideToast();
+    },
+    escape: true, // Close the toast when the user presses ESC key
+  }).showToast();
 }
 
- 
- 
+async function deleteAddress(addressId) {
+  try {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this address. This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    });
+
+    if (result.isConfirmed) {
+      const response = await fetch(`/deleteaddress?addressId=${addressId}`, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        // Successful response, remove the address from the UI
+        const addressElement = document.querySelector(`[data-address-id='${addressId}']`);
+        if (addressElement) {
+          // Remove the address element from the DOM
+          addressElement.remove();
+        } else {
+          console.error('Error: Unable to find the deleted address element.');
+        }
+      } else {
+        // Handle the case where deletion was not successful
+        Swal.fire({
+          title: 'Failed to delete!',
+          text: 'An error occurred while trying to delete the address. Please try again.',
+          icon: 'error'
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error deleting address:', error);
+    Swal.fire({
+      title: 'Error!',
+      text: 'An error occurred while trying to delete the address. Please try again.',
+      icon: 'error'
+    });
+  }
+}
+
+
+
+
+
 // function openEditAddressForm(addressId) {
 //   fetchAddressById(addressId)
 //     .then((addressToEdit) => {
@@ -332,4 +497,4 @@ async function deleteAddress(addressId) {
 
 
 
-<%-include('./includes/footer') %>
+  <%-include('./includes/footer') %>

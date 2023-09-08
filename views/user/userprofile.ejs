@@ -23,8 +23,8 @@
         <div class="card-body text-center">
           <img src="./assets/images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
             class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
-          <h5 class="my-3">Hello</h5>
-          <p class="text-muted mb-0"><strong><%=user.name %></strong></p>
+          <h5 class="my-1">Hello</h5>
+          <p class="text-muted mb-2"><strong><%=user.name %></strong></p>
           <div class="d-flex justify-content-center mb-0">
             <a href="/logout" class="btn btn-danger">Logout</a>
           </div>
@@ -93,7 +93,7 @@
             </div>
           </div>
       
-          <button id="editBtn" class="btn btn-primary">Edit</button>
+          <!-- <button id="editBtn" class="btn btn-primary">Edit</button> -->
         </div>
       </div>
     
@@ -112,7 +112,7 @@
   </div>
   <%-include('./includes/footer') %>
 
-    <script>
+    <!-- <script>
       document.addEventListener('DOMContentLoaded', () => {
         const editBtn = document.getElementById('editBtn');
         const inputFields = document.querySelectorAll('.form-control');
@@ -190,7 +190,7 @@
           }
         });
       });
-    </script>
+    </script> -->
     <script>
        function copyReferralCode(button) {
             const referralCode = document.getElementById('referral-code');

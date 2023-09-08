@@ -1,82 +1,125 @@
 <%-include('./includes/header') %>
 <style>
+/* Maintain the previous width and make the wallet component more unique */
+
+/* Wallet Container */
 .wallet-container {
   background-color: #f8f8f8;
-  border-radius: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1000px; /* Maintain previous width */
+  margin: 0 auto;
 }
 
+/* Wallet Heading */
 .wallet-heading {
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: bold;
   color: #333;
+  margin-bottom: 20px;
   text-align: center;
 }
 
+/* Wallet Balance */
 .wallet-balance {
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: #666;
-  text-align: center;
+  text-align: end;
+  font-size: 24px;
+  color: #555;
 }
 
+/* Order List */
 .order-list {
-  border-top: 10px solid #0d6efd;
-  padding-top: 20px;
+  margin-top: 20px;
 }
 
-.order-item {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 0;
-  /* border-bottom: 1px solid #ddd; */
-}
-
-.order-item-date {
-  font-size: 14px;
-  color: #333;
-}
-
-.debited {
-  color: #d9534f;
-}
-
-.credited {
-  color: #5cb85c;
-}
-
-.order-item-type {
-  font-size: 14px;
-  color: #666;
-}
-.custom-list {
-  padding-left: 0;
-  margin: 0;
-}
-
+/* Order Item */
 .order-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0;
-  border-bottom: 0px solid #e5e5e5;
-  font-size: 16px;
-  list-style: cjk-ideographic; /* Use the desired custom list style */
-  margin-left: 0;
-  padding-left: 20px; /* Adjust padding for alignment */
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
 }
 
+.order-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Transaction Date */
+.transaction-date {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Transaction Amount */
+.transaction-amount {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Transaction Type (Debit and Credit) */
+.transaction-type {
+  font-size: 16px;
+  /* color: #333; */
+}
+
+/* Debit Transaction */
+.transaction-amount.Debited {
+  color: #e74c3c;
+}
+
+/* Credit Transaction */
+.transaction-amount.Credited {
+  color: #27ae60;
+}
+
+
 </style>
+<div class="wrap-header-cart js-panel-cart">
+  <div class="s-full js-hide-cart"></div>
+
+  <div class="header-cart flex-col-l p-l-65 p-r-25">
+    <div class="header-cart-title flex-w flex-sb-m p-b-8">
+      <span class="mtext-103 cl2">
+        Your Cart
+      </span>
+
+      <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+        <i class="zmdi zmdi-close"></i>
+      </div>
+    </div>
+
+    <div class="header-cart-content flex-w js-pscroll">
+      
+
+      <div class="w-full">
+
+        <div class="header-cart-buttons flex-w w-full">
+          <a href="/loadcart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+            View Cart
+          </a>
+
+          <a href="/checkout" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+            Check Out
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row mt-3">
   <div class="col-lg-4">
     <div class="card mb-0 mx-3 border" style="background-color:#b2b2b2;">
       <div class="card-body text-center">
         <img src="./assets/images/200 cặp avatar đôi bạn thân_ Đáng yêu, hài hước, nhây lầy đủ cả - BlogAnChoi.jpeg" alt="avatar"
           class="rounded-circle img-fluid" style="width: 150px; background-color: aliceblue;">
-        <h5 class="my-3">Hello</h5>
-        <p class="text-muted mb-0"><strong>Sachin</strong></p>
+        <h5 class="my-1">Hello</h5>
+        <p class="text-muted mb-3"><strong><%=user.name %></strong></p>
         <div class="d-flex justify-content-center mb-2">
           <a href="/logout" class="btn btn-danger">Logout</a>
         </div>
@@ -114,27 +157,28 @@
   
   <div class="col-lg-7">
     <div class="wallet-container">
-      <h1 class="wallet-heading">My Wallet</h1>
-      <p class="wallet-balance"><mark>Current Balance: <strong>₹<%= user.totalBalance %></strong></mark></p>
-      <div class="order-list">
-        <ol class="custom-list">
-          <% user.wallet.forEach((transaction) => { %>
-            <li class="order-item">
-              <div class="transaction-date">
-                <%= transaction.timestamp.toLocaleDateString() %>
-              </div>
-              <div class="transaction-amount <%= transaction.type.toLowerCase() %>">
-                <%= transaction.type === 'Debited' ? '-' : '' %>₹<%= transaction.amount %>
-              </div>
-              <div class="transaction-type">
-                <%= transaction.type %>
-              </div>
-            </li>
-          <% }) %>
-        </ol>
-      </div>
+        <h1 class="wallet-heading">My Wallet</h1>
+        <p class="wallet-balance">Current Balance: <strong>₹<%= user.totalBalance %></strong></p>
+        <div class="order-list">
+            <ol class="custom-list">
+                <% user.wallet.forEach((transaction) => { %>
+                <li class="order-item">
+                    <div class="transaction-date">
+                        <%= transaction.timestamp.toLocaleDateString() %>
+                    </div>
+                    <div class="transaction-amount <%= transaction.type.toLowerCase() %>">
+                        <%= transaction.type === 'Debited' ? '-' : '' %>₹<%= transaction.amount %>
+                    </div>
+                    <div class="transaction-type">
+                        <%= transaction.type %>
+                    </div>
+                </li>
+                <% }) %>
+            </ol>
+        </div>
     </div>
-  </div>
+</div>
+
   
   
   

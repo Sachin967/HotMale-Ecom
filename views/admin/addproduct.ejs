@@ -156,7 +156,7 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header">
+      <!-- <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -201,7 +201,7 @@
             </ul>
           </div>
         </nav>
-      </header>
+      </header> -->
       <!--  Header End -->
       <div class="container-fluid">
         <div class="card">
@@ -211,7 +211,7 @@
             <form class="forms-sample" enctype="multipart/form-data" method="post" action="/addproduct">
               <div class="form-group">
                 <label for="exampleInputName1">Product Name</label>
-                <input type="text" name="pname" class="form-control" id="exampleInputName1" placeholder="Product Title"
+                <input type="text" name="pname" class="form-control" id="exampleInputName1" placeholder="Product Title" maxlength="15"
                   required>
               </div>
               <div class="form-group">
@@ -227,11 +227,11 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword4">Price</label>
-                <input type="number" name="price" class="form-control" placeholder="Price in rupees" required>
+                <input type="number" name="price" class="form-control" placeholder="Price in rupees" min="10" max="100000" required>
               </div>
               <div class="form-group">
                 <label for="discountPercentage">Discount Percentage:</label>
-                <input type="number" id="discountPercentage" name="discountPercentage" ><br><br>
+                <input type="number" id="discountPercentage" name="discountPercentage" max="100"><br><br>
               </div>
               <div class="form-group">
                 <label for="offerValidFrom">Offer Valid From:</label>
@@ -243,7 +243,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleTextarea1">Description</label>
-                <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"></textarea>
+                <textarea class="form-control" name="description" id="exampleTextarea1" rows="4" maxlength="50"></textarea>
               </div>
               <div class="col-lg-6">
                 <div class="card mb-4">
@@ -353,7 +353,7 @@
             }
 
             // Validate Price
-            if (isNaN(price) || parseInt(price) <= 0) {
+            if (isNaN(price) || parseInt(price) <= 0 || parseInt(price) >= 100000) {
               isValid = false;
               // Show error for price
             }

@@ -35,7 +35,7 @@ const updateQuantity = async (data) => {
       } else {
         
         const newTotal = (product.offerPrice > 0 ? product.offerPrice : product.price) * count;
-        console.log(newTotal);
+        
         await Cart.updateOne(
 
           { _id: cartId, "products.product": proId },

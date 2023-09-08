@@ -114,13 +114,14 @@ a {
   padding: 6px; /* Increase padding for a larger input */
   width: 180px; /* Increase width as needed */
   font-size: 15px; /* Increase font size */
-  color: #333; /* Adjust text color */
+  color: #fff; /* Change text color to white */
   background-color: transparent; /* Make the input background transparent */
   transition: width 0.3s ease, padding 0.3s ease;
 }
 
+
 .search-input:focus {
-  width: 280px; /* Increase width on focus */
+  width: 220px; /* Increase width on focus */
   padding: 5px 10px; /* Adjust padding on focus */
 }
 
@@ -209,7 +210,7 @@ a {
               <% } else { %>
                 <!-- Show login button -->
                 <span  class="profile-link mx-2">
-                <a href="/login" style="margin-left: 15px;" class="login-button"><mark>Sign In</mark></a>
+                <a href="/login" style="margin-left: 15px;" class="login-button">Sign In</a>
               </span>
                 <% } %>
             </div>
@@ -320,27 +321,11 @@ a {
             </a>
           </li>
 
-          <li class="p-b-13">
-            <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-              My Wishlist
-            </a>
-          </li>
+         
 
           <li class="p-b-13">
             <a href="/my-profile" class="stext-102 cl2 hov-cl1 trans-04">
               My Account
-            </a>
-          </li>
-
-          <li class="p-b-13">
-            <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-              Track Oder
-            </a>
-          </li>
-
-          <li class="p-b-13">
-            <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-              Refunds
             </a>
           </li>
 
@@ -476,7 +461,7 @@ a {
           <% }) %>
           <div class="container h-full">
             <div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
-              <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+              <div class="layer-slick1 animated visible-false mb-3" data-appear="fadeInDown" data-delay="0">
                                                                                  <span class="ltext-202 txt-center cl0 respon2">
                                                                                          <%=banner.title %>
                                                                                  </span>
@@ -498,53 +483,6 @@ a {
         </div>
         <% }) %>
 
-        <!-- <div class="item-slick1 bg-overlay1" style="background-image: url(./assets/images/banner.jpg);">
-          <div class="container h-full">
-            <div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
-              <!-- <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
-                                                                                 <span class="ltext-202 txt-center cl0 respon2">
-                                                                                          Men New-Season
-                                                                                 </span>
-                                                                        </div>
-
-                                                                        <div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
-                                                                                 <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                                                                          Jackets & Coats
-                                                                                 </h2>
-                                                                        </div> 
-
-              <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-                <a href="/products" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                  Shop Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-slick1 bg-overlay1" style="background-image: url(./assets/images/banner2.jpg);">
-          <div class="container h-full">
-            <div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
-              <!-- <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
-                                                                                 <span class="ltext-202 txt-center cl0 respon2">
-                                                                                          Men Collection 2018
-                                                                                 </span>
-                                                                        </div>
-
-                                                                        <div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
-                                                                                 <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                                                                          NEW SEASON
-                                                                                 </h2>
-                                                                        </div> 
-
-              <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-                <a href="/products" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                  Shop Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
 
       <!-- <div class="wrap-slick1-dots p-lr-10"></div> -->
@@ -704,10 +642,7 @@ a {
                 <div class="block2-pic hov-img0 label-new" data-label="New">
                   <a href="/productdetails?id=<%=product._id%>">
                   <img src="uploads/products/<%= product.images[0]%>" alt="IMG-PRODUCT" /></a>
-                  <a href="/productdetails?id=<%=product._id%>"
-                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                    Quick View
-                  </a>
+                 
                 </div>
                 <div class="block2-txt flex-w flex-t p-t-14">
                   <div class="block2-txt-child1 flex-col-l">
@@ -718,14 +653,7 @@ a {
                       ₹ <%= product.price %>
                     </span>
                   </div>
-                  <div class="block2-txt-child2 flex-r p-t-3">
-                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-product-id="<%= product._id %>">
-                      <img class="icon-heart1 dis-block trans-04" src="./assets/images/icons/icon-heart-01.png"
-                        alt="ICON" />
-                      <img class="icon-heart2 dis-block trans-04 ab-t-l" src="./assets/images/icons/icon-heart-02.png"
-                        alt="ICON" />
-                    </a>
-                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -1205,22 +1133,22 @@ wishlistButtons.forEach((button) => {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 <script>
-    const queryParams = new URLSearchParams(window.location.search);
+   const queryParams = new URLSearchParams(window.location.search);
 const successParam = queryParams.get('success');
 
 if (successParam === 'true') {
-  // Import the Toastify library if you haven't already
-  // This code assumes the Toastify library is loaded before this script
-
-  // Show a Toastify success notification
   Toastify({
     text: "Login successful!",
-    duration: 2000, // Display the toast for 5 seconds
+    duration: 2000, // Display the toast for 2 seconds
     gravity: "top", // Position the toast at the top
-    position: "center", // Position the toast on the right side
-    backgroundColor: "rgb(34,193,195)", // Customize the toast background color
+    position: "center", // Position the toast at the bottom
+    style: {
+      // Customize the toast background color
+      background: "linear-gradient(to right, #0b7303, #24c9a3)",
+    }
   }).showToast();
 }
+
 </script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

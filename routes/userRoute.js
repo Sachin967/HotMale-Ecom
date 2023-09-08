@@ -73,6 +73,7 @@ user.get('/wallet',userWare.restrict,userController.walletGet)
 // user.post('/add-to-wishlist',userWare.restrict,productControl.addtoWishlist)
 user.get('/confirmation',userWare.restrict,ordercartControl.orderSuccessView)
 user.post('/verify-payment',userWare.restrict,ordercartControl.verifyPayment)
+user.post('/paymentfailed',userWare.restrict,ordercartControl.paymentFailed)
 
 user.post('/redeem-coupon',userWare.restrict,userController.applyCoupon)
 user.get('/download-invoice/:orderId/:productIndex',userWare.restrict,userController.downloadInvoice)

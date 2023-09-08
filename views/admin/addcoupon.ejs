@@ -230,7 +230,7 @@
           
               <div class="form-group">
                   <label for="percentage">Discount Percentage</label>
-                  <input type="number" name="percentage" id="percentage" min="1" max="100" 
+                  <input type="number" name="percentage" id="percentage" 
                          onkeyup="percentageLimit()" class="form-control" placeholder="Discount Percentage" >
                   <span id="percent-error"></span>
               </div>
@@ -279,20 +279,20 @@
         document.getElementById('couponId').value = coupon.replaceAll(" ", "").toUpperCase()
     }
 
-    function percentageLimit(){
-        var percentError = document.getElementById('percent-error');
-        let percent = document.getElementById('percentage').value
-        if(percent<1){
-            percentError.innerHTML = 'Percentage bellow limit';
-			percentError.style.color = 'red'
-        }else if(percent>100){
-            percentError.innerHTML = 'Percentage above limit';
-			percentError.style.color = 'red'
-        }else{
-            percentError.innerHTML = '';
-        }
+    // function percentageLimit(){
+    //     var percentError = document.getElementById('percent-error');
+    //     let percent = document.getElementById('percentage').value
+    //     if(percent<1){
+    //         percentError.innerHTML = 'Percentage bellow limit';
+		// 	percentError.style.color = 'red'
+    //     }else if(percent>100){
+    //         percentError.innerHTML = 'Percentage above limit';
+		// 	percentError.style.color = 'red'
+    //     }else{
+    //         percentError.innerHTML = '';
+    //     }
 
-    }
+    // }
   </script>
 
 <script>
