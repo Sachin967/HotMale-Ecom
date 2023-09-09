@@ -247,42 +247,25 @@ a {
           <span class="hamburger-inner"></span>
         </span>
       </div>
-    </div>
+   
 
     <!-- Menu Mobile -->
     <div class="menu-mobile">
       <ul class="main-menu-m">
         <li>
-          <a href="/">Home</a>
-          <ul class="sub-menu-m">
-            <li><a href="/">Homepage 1</a></li>
-          </ul>
-          <span class="arrow-main-menu-m">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </li>
-
-        <li>
           <a href="/products">Shop</a>
         </li>
+        <% for (const categoryItem of category) { %>
+          <% if (categoryItem.isListed) { %>
+            <li>
+              <a href="/products?page=1&category=<%= categoryItem.categorytitle %>"><%= categoryItem.categorytitle %></a>
+            </li>
+          <% }else %>
+        <% } %>
 
-        <li>
-          <a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
-        </li>
-
-        <!-- <li>
-          <a href="blog.html">Blog</a>
-        </li>
-
-        <li>
-          <a href="about.html">About</a>
-        </li>
-
-        <li>
-          <a href="contact.html">Contact</a>
-        </li> -->
       </ul>
     </div>
+  </div>
 
     <!-- Modal Search -->
     <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
