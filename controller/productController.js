@@ -132,7 +132,7 @@ const productControl = {
   editCategoryName: async (req, res) => {
     try {
       const { categorytitle } = req.query;
-      console.log(req.query);
+      
       const { updatedName, offerPercentage } = req.body;
 
       await Category.updateOne(
@@ -147,11 +147,11 @@ const productControl = {
           { $set: { offerPercentage: offerPercentage } },
           { upsert: true } // Add the field if it doesn't exist
         );
-        console.log(category);
+        
         const productsInCategory = await product.find({
           category: updatedName,
         });
-        console.log(productsInCategory);
+        
         for (const product of productsInCategory) {
           const individualDiscountedPrice =
             Math.round(product.price * (100 - product.offerPercentage)) / 100;

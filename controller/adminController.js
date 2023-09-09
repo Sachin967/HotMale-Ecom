@@ -63,7 +63,7 @@ const adminControl = {
       await User.updateOne({ _id: id }, { $set: { isBlocked: true } });
       res.redirect("/users");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   },
 
@@ -73,7 +73,7 @@ const adminControl = {
       await User.updateOne({ _id: id }, { $set: { isBlocked: false } });
       res.redirect("/users");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   },
 
@@ -89,36 +89,52 @@ const adminControl = {
 
   productAddpost: async (req, res) => {
     try {
+    
+  
       var images = [];
       for (let i = 0; i < req.files.length; i++) {
         if (req.files[i] !== undefined) {
           images.push(req.files[i].filename);
         }
       }
-
+  
+     
+  
       const category = await Category.findOne({ _id: req.body.category });
       if (!category) {
         console.log("Category not found");
-        return res.redirect("/addproduct"); 
+        return res.redirect("/addproduct");
       }
-
+  
       const price = parseFloat(req.body.price);
       const discountPercentage = parseFloat(req.body.discountPercentage);
-      const offerPrice = price - (price * (discountPercentage / 100));
-
+  
+      if (isNaN(price) ) {
+        // Handle the case where price or discountPercentage is not a valid number
+        console.log("Invalid price or discountPercentage");
+        return res.redirect("/addproduct");
+      }
+  
+      // Set offerPercentage to 0 if it's NaN
+      const offerPercentage = isNaN(discountPercentage) ? 0 : discountPercentage;
+  
+      const offerPrice = price - (price * (offerPercentage / 100));
+  
       const product = new Product({
         pname: req.body.pname,
         category: category.categorytitle,
-        price: req.body.price,
+        price: price,
         description: req.body.description,
         stock: req.body.stock,
         images: images,
         offerPrice: offerPrice,
-        offerPercentage:discountPercentage,
-        offerValidFrom: req.body.offerValidFrom, 
-        offerValidUntil: req.body.offerValidUntil
+        offerPercentage: offerPercentage,
+        offerValidFrom: req.body.offerValidFrom,
+        offerValidUntil: req.body.offerValidUntil,
       });
+  
       const result = await product.save();
+     
       res.redirect("/viewproducts");
     } catch (error) {
       console.log("Error processing images:", error);
@@ -126,6 +142,7 @@ const adminControl = {
       res.redirect("/addproduct");
     }
   },
+  
 
   adminLogout: async (req, res) => {
     req.session.destroy((err) => {
@@ -187,7 +204,7 @@ const adminControl = {
       const newStatus = req.body.status;
       const productIdToUpdate = req.body.product_id;
       const order = await Order.findById(orderId);
-      console.log(productIdToUpdate);
+     
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
@@ -251,7 +268,7 @@ const adminControl = {
 
   editCoupons: async (req, res) => {
     const couponId = req.query.id;
-    console.log(couponId);
+    
     const coupon = await Coupon.findOne({ _id:couponId });
   
     res.render('edit-coupon',{coupon});
@@ -312,8 +329,7 @@ const adminControl = {
     try {
       const { title, linkURL } = req.body;
       const imageUrl = req.file.filename;
-      console.log(req.body);
-      console.log(req.file);
+      
       const newBanner = new Banner({
         title: title,
         linkURL: linkURL,
@@ -364,10 +380,7 @@ const adminControl = {
       const { title, linkURL } = req.body;
       const newImage = req.file ? req.file.filename : '';
       const removeImage = req.body.removeImage === 'true';
-      console.log(bannerId);
-      console.log(req.body);
-      console.log(newImage);
-      console.log(removeImage);
+      
 
   
       // Fetch the existing banner data
