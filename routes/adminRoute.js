@@ -55,7 +55,7 @@ admin.get('/unblockuser',adminWare.adminLoginCheck,adminControl.unblockUsers);
 
 admin.get('/viewproducts',adminWare.adminLoginCheck,adminControl.viewProducts)
 admin.get('/addproduct',adminWare.adminLoginCheck,adminControl.productAddget)
-admin.post('/addproduct',adminWare.adminLoginCheck,uploadPrdt.array('taya',4),adminControl.productAddpost)
+admin.post('/addproduct',adminWare.adminLoginCheck,uploadPrdt.array('images',4),adminControl.productAddpost)
 
 admin.get('/deleteproduct',adminWare.adminLoginCheck,productControl.deleteProduct)
 admin.get('/listproduct',adminWare.adminLoginCheck,productControl.listProduct)
