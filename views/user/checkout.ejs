@@ -5,7 +5,9 @@
     /* Add your custom CSS styles here */
 
 
-
+  *{
+    text-decoration: none;
+  }
     /* Shipping Address Section */
     .card-header {
       background-color: #333;
@@ -256,7 +258,7 @@
 
                                   <input class="form-check-input" checked type="radio" name="deliveryAddress"
                                     id="flexRadioDefault1" value="<%=address._id%>" required>
-                                  <label class="form-check-label p-2" for="flexRadioDefault1">
+                                  <label style="text-decoration: none;" class="form-check-label p-2 " for="flexRadioDefault1">
                                     <strong>
                                       <%= address.name %>
                                     </strong>-<%= address.mobile %><br>
@@ -287,26 +289,26 @@
               <div class="form-check mb-3">
                 <input class="form-check-input" type="radio" name="paymentMethod" onchange="checkCheckoutButton()"
                   id="razorpay" value="razorpay" required>
-                <label class="form-check-label" for="razorpay">Online Payment</label>
+                <label style="text-decoration: none;" class="form-check-label" for="razorpay">Online Payment</label>
               </div>
 
               <div class="form-check mb-3">
                 <input class="form-check-input" type="radio" name="paymentMethod" onchange="checkCheckoutButton()"
                   id="cod" value="cod">
-                <label class="form-check-label" for="cod">Cash On Delivery</label>
+                <label style="text-decoration: none;" class="form-check-label" for="cod">Cash On Delivery</label>
               </div>
 
               <% if(user.totalBalance>= totalPrice) { %>
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="radio" name="paymentMethod" onchange="displayWalletBalance()"
                     onclick="checkCheckoutButton()" id="wallet" value="wallet" required>
-                  <label class="form-check-label" for="wallet">Wallet</label>
+                  <label class="form-check-label" style="text-decoration: none;" for="wallet">Wallet</label>
                 </div>
                 <% } else { %>
                   <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="paymentMethod" onchange="displayWalletBalance()"
                       onclick="checkCheckoutButton()" id="wallet" value="wallet" disabled>
-                    <label class="form-check-label" for="wallet">Wallet</label>
+                    <label class="form-check-label" style="text-decoration: none;" for="wallet">Wallet</label>
                     <p class="error-message">Not enough Balance</p>
                     <strong>Balance:<%= user.totalBalance %></strong>
                   </div>
