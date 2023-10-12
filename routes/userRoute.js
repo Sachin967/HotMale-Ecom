@@ -54,7 +54,7 @@ user.post('/postaddress',userWare.restrict,profileControl.addAddress)
 user.get('/editaddress/:id',userWare.restrict,profileControl.getEditAddressPage)
 user.post('/editaddress/:id',userWare.restrict,profileControl.editAddress)
 user.get('/deleteaddress',userWare.restrict,profileControl.deleteAddress)
-
+user.get('/wallet',userWare.restrict,userController.walletGet)
 
 user.get('/loadcart',userWare.restrict,ordercartControl.loadCart)
 user.post('/addtocart',userWare.userisBlocked,ordercartControl.addToCart)
@@ -65,10 +65,10 @@ user.get('/checkout',userWare.restrict,userWare.cartNotEmptyMiddleware,ordercart
 user.post('/checkout',userWare.restrict,ordercartControl.processCheckout)
 
 user.get('/order-details',userWare.restrict,ordercartControl.orderdetails)
+user.get('/viewdetails',userWare.restrict,ordercartControl.orderHistory)
 user.post('/cancel-order/:orderId/:productId',userWare.restrict,ordercartControl.cancelOrder)
 user.post('/return-order/:orderId/:productId',userWare.restrict,ordercartControl.returnProduct)
-user.get('/viewdetails',userWare.restrict,ordercartControl.orderHistory)
-user.get('/wallet',userWare.restrict,userController.walletGet)
+
 
 // user.post('/add-to-wishlist',userWare.restrict,productControl.addtoWishlist)
 user.get('/confirmation',userWare.restrict,ordercartControl.orderSuccessView)

@@ -56,33 +56,53 @@
         <!-- Product Details Box -->
         <div class="col-md-12">
           <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td>
-                  <img src="uploads/products/<%= product.product.images[0] %>" alt="Product" width="80" height="80">
-                </td>
-                <td>
-                  <div class="ms-3">
-                    <h6><%= product.product.pname %></h6>
-                  </div>
-                </td>
-                <td><%= product.quantity %></td>
-                <td>₹<%= product.price %></td>
-                <td><%= new Date(orders.createdAt).toLocaleDateString() %></td>
-                <td>
-                  <% if (product.status === 'Cancelled') { %>
-                  <button class="btn btn-danger" disabled>Already cancelled</button>
-                  <% } else if (product.status === 'Delivered') { %>
-                    <button class="btn btn-warning" onclick="returnProduct('<%= orderid %>', '<%= productId %>')">Return</button>
-                  <a href="/download-invoice/<%= orders._id %>/<%= productIndex %>" class="btn btn-primary">Download Invoice</a>
-                  <% } else if (product.status === 'Returned') { %>
-                  <button class="btn btn-success" disabled>Returned</button>
-                  <% } else { %>
-                    <button class="btn btn-danger" onclick="cancelProduct('<%= orderid %>', '<%= productId %>')">Cancel</button>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Order Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="uploads/products/<%= product.product.images[0] %>" alt="Product" width="80" height="80">
+                  </td>
+                  <td>
+                    <div class="ms-3">
+                      <h6><%= product.product.pname %></h6>
+                    </div>
+                  </td>
+                  <td><%= product.quantity %></td>
+                  <td>₹<%= product.price %></td>
+                  <td><%= new Date(orders.createdAt).toLocaleDateString() %></td>
+                  <td>
+                    <% if (product.status === 'Cancelled') { %>
+                    <button class="btn btn-danger" disabled>Already cancelled</button>
+                    <% } else if (product.status === 'Delivered') { %>
+                      <% if (canReturn) { %>
+                        <p>Product can only be returned within 10 days of ordering.</p>
+                        <button class="btn btn-warning" onclick="returnProduct('<%= orderid %>', '<%= productId %>')">Return</button>
+                      <% } else { %>
+                        <!-- <button class="btn btn-secondary" disabled>Return</button> -->
+                        <p>Product can only be returned within 10 days of ordering.</p>
+                      <% } %>
+                      <a href="/download-invoice/<%= orders._id %>/<%= productIndex %>" class="btn btn-primary">Download Invoice</a>
+                    <% } else if (product.status === 'Returned') { %>
+                    <button class="btn btn-success" disabled>Returned</button>
+                    <% } else { %>
+                      <button class="btn btn-danger" onclick="cancelProduct('<%= orderid %>', '<%= productId %>')">Cancel</button>
                     <% } %>
-                </td>
-              </tr>
-            </tbody>
+                  </td>
+                </tr>
+                <!-- Add more rows if needed -->
+              </tbody>
+            </table>
+            
             
             
           </table>

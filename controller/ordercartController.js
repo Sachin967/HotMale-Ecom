@@ -507,8 +507,20 @@ const ordercartController = {
           }
           
         }
-        res.render("order-history", { orders: order, product: selectedProduct,productIndex,orderid,productId 
-                                      ,loggedIn, cartProductCount});
+        const currentDate = new Date();
+        const orderingDate = new Date(order.orderingDate); // Assuming you have an orderingDate property in your order model
+    
+        // Calculate the number of days elapsed since ordering
+        const daysElapsed = Math.floor(
+          (currentDate - orderingDate) / (1000 * 60 * 60 * 24)
+        );
+    
+        // Check if it's within 10 days, and only then display the return button
+        const canReturn = daysElapsed <= 10;  
+        
+        res.render("order-history", { orders: order, product: selectedProduct,
+                                        productIndex,orderid,productId 
+                                      ,loggedIn, cartProductCount,canReturn});
       } catch (error) {
       console.log(error.message);
     }
@@ -636,14 +648,14 @@ const ordercartController = {
       const order = await Order.findById(orderId);
 
       const orderProduct = order.products.find(
-        (p) => p.product.toString() === productId
-      );
+        (p) => p.product.toString() === productId);
 
       if (!orderProduct) {
         return res
           .status(404)
           .json({ error: "Product not found in the order." });
       }
+      
 
       const product = await Product.findById(productId);
 
