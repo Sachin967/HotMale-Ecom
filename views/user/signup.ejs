@@ -1,365 +1,402 @@
-<!-- Add the SweetAlert2 library
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+</link>
 <style>
-  /* Custom styles for the Signup page */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --main-color: #3a0ca3;
+    --background-color: #ae63e4;
+    /* Updated background color */
+  }
 
   body {
-    background-color: #f9f9f9;
-  }
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: #ae63e4;
+}
 
-  .card {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .card-header {
-    background-color: #007bff;
-    color: #fff;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    padding: 15px;
-  }
-
-  .card-body {
-    padding: 20px;
-  }
-
-  .form-group {
-    margin-bottom: 20px;
-  }
-
-  .input-group-addon {
-    padding: 12px;
-  }
-
-  .login-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    outline: none;
-  }
-
-  .login-button:hover {
-    background-color: #0056b3;
-  }
-
-  .login-register {
-    text-align: center;
-    margin-top: 15px;
-  }
-
-  .login-register a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .login-register a:hover {
-    text-decoration: underline;
-  }
-
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
+  #FormContainer {
+    background-color: #000000a1;
+    backdrop-filter: blur(10px);
+    border: 2px solid #ffffff6d;
+    width: 760px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 11px 1.5px #0000002b;
+    font-family: Poppins;
     padding: 10px;
-    margin-bottom: 15px;
+    height: 700px;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  h1 {
+    padding: 20px;
+    color: var(--main-color);
+    font-size: 2.1rem;
+    font-weight: 800;
+    grid-column: 1/span 2;
+  }
+
+  .ImgContainer {
+    overflow: hidden;
+    border-radius: 10px;
+    background: url(https://wallpapercg.com/media/ts_sq/7898.webp);
+    background-size: 100% 650px;
+  }
+
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .Name,
+  .password {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+
+  }
+
+  form li {
+    list-style-type: none;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+    text-align: left;
+
+  }
+
+  form label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 100%;
+    padding: 5px 15px;
+    color: var(--main-color);
+  }
+
+  form input,
+  form select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffff6d;
+    width: 100%;
+    outline: none;
+    color: var(--main-color);
+    margin-bottom: 10px;
+  }
+
+  form input:focus,
+  form select:focus,
+  form input:hover,
+  form select:hover {
+    border: 1px solid var(--main-color);
+  }
+
+  form .Phone {
+    display: grid;
+    grid-template-columns: 35% 65%;
+  }
+
+  form select {
+    width: 100%;
+  }
+
+  form .Phone input {
+    
+    flex: 1;
+    width: 340px;
+  }
+
+  .Subscribe {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+  }
+
+  .CheckBoxCont {
+    width: 25px;
+    border-radius: 5px;
+    height: 25px;
+    position: relative;
+    border: 1px solid var(--main-color);
+    transition-duration: 0.2s;
+  }
+
+  .CheckBoxCont:hover {
+    background-color: var(--main-color);
+  }
+
+  .CheckBoxCont:hover .Tickline2 {
+    background-color: white;
+  }
+
+  .CheckBoxCont:hover .Tickline1 {
+    background-color: white;
+  }
+
+
+  .Tickline2,
+  .Tickline1 {
+
+    background-color: var(--main-color);
+    border-radius: 20px;
+    height: 3px;
+    position: absolute;
+    width: 20px;
+    transition-duration: 0.3s;
+    border: none;
+    ;
+
+  }
+  span{
+    width: 300px;
+  }
+
+  .Tickline1 {
+    rotate: -45deg;
+    top: 10px;
+    left: 5px;
+    opacity: 0;
+    width: 18px;
+    animation: 1s car linear infinite;
+  }
+
+  .Tickline2 {
+    rotate: 50deg;
+    top: 12px;
+    width: 8px;
+    opacity: 0;
+    left: 2px;
+  }
+
+  .Subscribe label {
+    padding: 10px;
+    width: fit-content;
+
+  }
+
+  form button {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: white;
+    background-color: var(--main-color);
+    border: none;
+    cursor: pointer;
+    margin: auto;
+  }
+
+  @media (max-width:800px) {
+    .ImgContainer {
+      display: none;
+    }
+
+    #FormContainer {
+      grid-template-columns: 100%;
+      width: 380px;
+    }
+
+
+  }
+
+  @media (max-width:430px) {
+    #FormContainer {
+      border-radius: 0px;
+      width: 100%;
+      padding: 5px;
+      height: 100%;
+    }
+
+    .Name,
+    .Phone,
+    .password {
+      display: block;
+    }
   }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div id="FormContainer">
+  <div class="ImgContainer">
 
-<div class="mt-5 pt-5">
-  <div class="row justify-content-center mt-5 mb-5">
-    <div class="col-md-6 mx-auto">
-      <div class="card w-75 mx-5 me-box-shadow" style="border-radius: 30px;">
-        <div class="card-header text-center">
-          <h1 class="">Signup</h1>
-        </div>
-        <div class="card-body">
-          <form class="form-horizontal" method="post" action="/signup">
-            <% if(locals.error){ %>
-            <div class="alert alert-danger" role="alert">
-              <%= msg %>
-            </div>
-            <% } %>
-            <div class="form-group">
-              <label for="name" class="cols-sm-2 control-label">Your Name</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" onkeyup="validateName()" name="name" id="name" placeholder="Enter your Name" />
-                </div>
-                <span id="name-error"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email" class="cols-sm-2 control-label">Your Email</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" onkeyup="validateEmail()" name="email" id="email" placeholder="Enter your Email" />
-                </div>
-                <span id="email-error"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email" class="cols-sm-2 control-label">Phone Number</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="mobile" onkeyup="validatePhone()" id="mobile" placeholder="Enter your mobile number" />
-                </div>
-                <span id="phone-error"></span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="password" class="cols-sm-2 control-label">Password</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" onkeyup="validatePassword()" name="password" id="password" placeholder="Enter your Password" />
-                </div>
-                <span id="password-error"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="password" class="cols-sm-2 control-label">Confirm Password</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" onkeyup="validatePassword()" name="cpassword" id="password" placeholder="Enter your Password" />
-                </div>
-                <span id="password-error"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-            </div>
-            <div class="login-register">
-              <a href="/login">Login</a>
-            </div>
-          </form>
-        </div>
-
-      </div>
-    </div>
   </div>
-</div> -->
-
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
-<style>
-  .gradient-custom-3 {
-/* fallback for old browsers */
-background: #84fab0;
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
-}
-.gradient-custom-4 {
-/* fallback for old browsers */
-background: #84fab0;
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
-}
-</style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<section class="vh-100 bg-image"
-  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-4">Create an account</h2>
-
-              <form action="/signup" method="post">
-                <% if(locals.error){ %>
-                  <div class="alert alert-danger" role="alert">
-                    <%= msg %>
-                  </div>
-                  <% } %>
-                  <span id="name-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="text" id="name" name="name" onkeyup="validateName()" class="form-control form-control-lg" />
-                  <label class="form-label" for="name">Your Name</label>
-                </div>
-                <span id="phone-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="text" id="mobile" name="mobile" onkeyup="validatePhone()" class="form-control form-control-lg" />
-                  <label class="form-label" for="name">Your Number</label>
-                </div>
-                <span id="email-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="email" id="email" name="email" onkeyup="validateEmail()" class="form-control form-control-lg" />
-                  <label class="form-label" for="email">Your Email</label>
-                </div>
-                <span id="password-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="password" id="password" name="password" onkeyup="validatePassword()" class="form-control form-control-lg" />
-                  <label class="form-label" for="password">Password</label>
-                </div>
-                <span id="password-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="password" id="password" name="cpassword" onkeyup="validatePassword()" class="form-control form-control-lg" />
-                  <label class="form-label" for="password">Repeat your password</label>
-                </div>
-                <span id="referal-error"></span>
-                <div class="form-outline mb-2">
-                  <input type="text" id="enteredReferralCode" name="enteredReferralCode"  class="form-control form-control-lg" />
-                  <label class="form-label" for="enteredReferralCode">Referal Code</label>
-                </div>
-                <!-- <div class="form-check d-flex justify-content-center mb-5">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                  <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-                  </label>
-                </div> -->
-
-                <div class="d-flex justify-content-center">
-                  <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                </div>
-
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
-                    class="fw-bold text-body"><u>Login here</u></a></p>
-
-              </form>
-
-            </div>
-          </div>
-        </div>
+  <form action="/signup" method="post" id="Form">
+    <h1 id="FormHeading">Sign Up</h1>
+    <% if(locals.error){ %>
+      <div class="alert alert-danger" role="alert">
+        <%= msg %>
       </div>
-    </div>
-  </div>
-</section>
+      <% } %>
+        <div class="Name">
+          <li><label>Name:</label>
+            <input type="text" id="name" name="name" onkeyup="validateName()">
+            <span id="name-error"></span>
+          </li>
+          <li> <label>Email:</label>
+            <input type="email" id="email" name="email" onkeyup="validateEmail()">
+            <span id="email-error"></span>
+          </li>
+        </div>
+        <li>
+
+        </li>
+        <div class="Phone">
+
+          <li>
+            <label>Phone No:</label><input type="text" id="mobile" name="mobile" onkeyup="validatePhone()">
+            <span id="phone-error"></span>
+          </li>
+        </div>
+        <div class="password">
+          <li><label>Password:</label> <input type="password" id="password" name="password"
+              onkeyup="validatePassword()"> <span id="password-error"></span></li>
+          <li><label>Confirm Password:</label> <input type="password" id="password" name="cpassword"
+              onkeyup="validatePassword()"> <span id="password-error"></span></li>
+        </div>
+        <div class="Phone">
+
+          <li>
+            <label>Referral Code:</label><input type="text" id="enteredReferralCode" name="enteredReferralCode">
+            <span id="referal-error"></span>
+          </li>
+        </div>
+        <button type="submit">Sign Up</button>
+        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
+            class="fw-bold text-body"><u>Login here</u></a></p>
+  </form>
+
+</div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-var nameError = document.getElementById('name-error');
-	var emailError = document.getElementById('email-error');
-	var phoneError = document.getElementById('phone-error');
-	var passwordError = document.getElementById('password-error');
-	var submitError = document.getElementById('submit-error');
+  var nameError = document.getElementById('name-error');
+  var emailError = document.getElementById('email-error');
+  var phoneError = document.getElementById('phone-error');
+  var passwordError = document.getElementById('password-error');
+  var submitError = document.getElementById('submit-error');
 
 
-	function validateName() {
-		var name = document.getElementById('name').value.trim();
-		console.log(name);
+  function validateName() {
+    var name = document.getElementById('name').value.trim();
+    console.log(name);
 
-		if (name.length == 0) {
-			nameError.innerHTML = 'Name is Required';
-			nameError.style.color = 'red'
-			return false;
-		}
+    if (name.length == 0) {
+      nameError.innerHTML = 'Name is Required';
+      nameError.style.color = 'red'
+      return false;
+    }
 
-		if (!name.match(/^[A-Za-z ]*$/)) {
-			nameError.innerHTML = 'Invalid Name';
-			nameError.style.color = 'red'
-			return false;
-		}
+    if (!name.match(/^[A-Za-z ]*$/)) {
+      nameError.innerHTML = 'Invalid Name';
+      nameError.style.color = 'red'
+      return false;
+    }
 
-		if (name.length < 3) {
-			nameError.innerHTML = 'Enter minimum 3 charactors';
-			nameError.style.color = 'red'
-			return false;
-		}
+    if (name.length < 3) {
+      nameError.innerHTML = 'Enter minimum 3 charactors';
+      nameError.style.color = 'red'
+      return false;
+    }
 
-		nameError.innerHTML = 'Name is valid';
-		nameError.style.color = 'green'
-		return true;
-	}
+    nameError.innerHTML = 'Name is valid';
+    nameError.style.color = 'green'
+    return true;
+  }
 
-	function validateEmail() {
-		var email = document.getElementById('email').value.trim();
-		if (email.length == 0) {
-			emailError.innerHTML = 'Email is Required';
-			emailError.style.color = 'red'
-			return false;
-		}
+  function validateEmail() {
+    var email = document.getElementById('email').value.trim();
+    if (email.length == 0) {
+      emailError.innerHTML = 'Email is Required';
+      emailError.style.color = 'red'
+      return false;
+    }
 
-		if (!email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-			emailError.innerHTML = 'Email is Invalid';
-			emailError.style.color = 'red'
-			return false;
-		}
-		emailError.innerHTML = 'Email is valid';
-		emailError.style.color = 'green'
-		return true;
-	}
+    if (!email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      emailError.innerHTML = 'Email is Invalid';
+      emailError.style.color = 'red'
+      return false;
+    }
+    emailError.innerHTML = 'Email is valid';
+    emailError.style.color = 'green'
+    return true;
+  }
 
-	function validatePassword() {
-		var password = document.getElementById('password').value.trim();
-		var Required = 15;
-		var left = Required - password.length;
+  function validatePassword() {
+    var password = document.getElementById('password').value.trim();
+    var Required = 15;
+    var left = Required - password.length;
 
-		if (password.length == 0 || password.length < 6) {
-			passwordError.innerHTML = 'More Character Required';
-			passwordError.style.color = 'red'
-			return false;
-		}
-		passwordError.innerHTML = 'Valid';
-		passwordError.style.color = 'green'
-		return true;
+    if (password.length == 0 || password.length < 6) {
+      passwordError.innerHTML = 'More Character Required';
+      passwordError.style.color = 'red'
+      return false;
+    }
+    passwordError.innerHTML = 'Valid';
+    passwordError.style.color = 'green'
+    return true;
 
-	}
+  }
 
-	function validatePhone() {
-		var mobile = document.getElementById("mobile").value.trim();
-		if (mobile.length == 0) {
-			phoneError.innerHTML = 'Phone number is Required';
-			phoneError.style.color = 'red'
-			
-			return false;
-		}
-		if (mobile.length <= 9) {
-			phoneError.innerHTML = "Enter Valid Phone Number"
-			phoneError.style.color = "red"
-			
-			return false
+  function validatePhone() {
+    var mobile = document.getElementById("mobile").value.trim();
+    if (mobile.length == 0) {
+      phoneError.innerHTML = 'Phone number is Required';
+      phoneError.style.color = 'red'
 
-		}
-		if (mobile.length >= 11) {
-			phoneError.innerHTML = "Phone Number Must be 10 Digits"
-			phoneError.style.color = "red"
-			return false
+      return false;
+    }
+    if (mobile.length <= 9) {
+      phoneError.innerHTML = "Enter Valid Phone Number"
+      phoneError.style.color = "red"
 
-		}
-		if (!mobile.match(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/)) {
-			phoneError.innerHTML = "Phonenumber must be digits"
-			phoneError.style.color("red")
+      return false
 
+    }
+    if (mobile.length >= 11) {
+      phoneError.innerHTML = "Phone Number Must be 10 Digits"
+      phoneError.style.color = "red"
+      return false
 
-			return false;
-		}
-		phoneError.innerHTML = ""
-		phoneError.innerHTML = "Phone Number is valid"
-		phoneError.style.color = 'green'
-		return true;
+    }
+    if (!mobile.match(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/)) {
+      phoneError.innerHTML = "Phonenumber must be digits"
+      phoneError.style.color("red")
 
 
-	}
-	jQuery_1_7_1(document).on("submit","form", function(e){
-		if (validateName() && validateEmail() && validatePhone() && validatePassword()) {
-		
-		}else{
-			e.preventDefault();
+      return false;
+    }
+    phoneError.innerHTML = ""
+    phoneError.innerHTML = "Phone Number is valid"
+    phoneError.style.color = 'green'
+    return true;
 
-			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: 'Invalid Input',
-			})
-		return false;
-		}
-	})
+
+  }
+  jQuery_1_7_1(document).on("submit", "form", function (e) {
+    if (validateName() && validateEmail() && validatePhone() && validatePassword()) {
+
+    } else {
+      e.preventDefault();
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Invalid Input',
+      })
+      return false;
+    }
+  })
 </script>

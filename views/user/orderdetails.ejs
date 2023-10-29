@@ -33,9 +33,15 @@
 
   <div class="order-container">
     <div class="order-table">
+      <% if(orders.length===0){ %>
+      <div class="order-header">
+        No Orders
+      </div>
+        <% }else{ %>
       <div class="order-header">
         My Orders
       </div>
+     
       <% orders.forEach((orderItem, index) => { %>
         <% orderItem.products.forEach((product, productIndex) => { %>
         <div class="order-row">
@@ -49,6 +55,7 @@
         </div>
         <% }) %>
       <% }) %>
+      <% } %>
     </div>
   </div>
   <div class="pagination">

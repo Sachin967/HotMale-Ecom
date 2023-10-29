@@ -8,6 +8,7 @@ const cartHelper = require("../helper/carthelper");
 const mongoose = require("mongoose");
 const Razorpay = require("razorpay");
 const { ObjectId } = require("mongodb");
+const { log } = require("console");
 const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env;
 const perPage = 4;
 const razorpayInstance = new Razorpay({
@@ -465,6 +466,7 @@ const ordercartController = {
         }
         
       }
+        console.log(orders);
   
       res.render("orderdetails", {
         orders,

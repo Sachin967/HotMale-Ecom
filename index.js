@@ -41,9 +41,7 @@ app.use('*',(req,res)=>{
   res.render('user/error404')
 })
 
-app.listen(3001, () => {
-  console.log('http://localhost:3001/');
-});
+app.listen(3001);
 
 
 
